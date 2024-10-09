@@ -1,11 +1,13 @@
-import counterReducer from "@/features/counter/counter-slice";
+import { currenciesApi } from "@/features/currency/api/currency-api";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      counter: counterReducer,
+      [currenciesApi.reducerPath]: currenciesApi.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(currenciesApi.middleware),
   });
 };
 
