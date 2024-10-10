@@ -1,14 +1,19 @@
-import { getCurrencies } from "@/services/currency-service";
+import { ExtraOptions } from "@/lib/redux/store";
 import { fixerResponseMock } from "@/testing/mocks/fixer-api-mock";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const currenciesApi = createApi({
   reducerPath: "currenciesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  baseQuery: async (args, api, extraOptions) => {
+    const res = await (
+      extraOptions as ExtraOptions
+    ).extra.currencyService.getCurrencies();
+    return { data: res.data };
+  },
   endpoints: (builder) => ({
     getCurrencies: builder.query<typeof fixerResponseMock, void>({
-      queryFn: async () => {
-        const res = await getCurrencies();
+      queryFn: async (_, extraOptions: ExtraOptions) => {
+        const res = await extraOptions.extra.currencyService.getCurrencies();
         return { data: res.data };
       },
     }),

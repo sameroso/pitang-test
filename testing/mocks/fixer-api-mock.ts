@@ -1,4 +1,6 @@
-export const fixerResponseMock = {
+import { CurrenciesDTO } from "@/services/currency-service";
+
+export const fixerResponseMock: CurrenciesDTO = {
   success: true,
   timestamp: 1728492605,
   historical: true,

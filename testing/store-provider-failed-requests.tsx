@@ -1,19 +1,19 @@
-"use client";
+("use client");
 import { useRef } from "react";
 import { Provider } from "react-redux";
-import { makeStore, AppStore } from "./store";
-import { currencyService } from "@/services/currency-service";
+import { AppStore, makeStore } from "@/lib/redux/store";
+import { CurrencyhandlerError } from "./mocks/handlers/currency";
 
-export default function StoreProvider({
+export const StoreMockRequestsError = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
     // Create the store instance the first time this renders
-    storeRef.current = makeStore({ currencyService });
+    storeRef.current = makeStore({ currencyService: CurrencyhandlerError });
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;
-}
+};

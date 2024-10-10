@@ -1,6 +1,6 @@
 "use client";
-import { DataTableDemo } from "@/features/currency/components/currency-table";
+import { CurrencyTable } from "@/features/currency/components/currency-table";
 
 export default function Home() {
-  return <DataTableDemo />;
+  return <CurrencyTable />;
 }

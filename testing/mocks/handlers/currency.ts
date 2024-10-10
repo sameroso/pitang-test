@@ -1,0 +1,22 @@
+import { CurrecyService, CurrenciesDTO } from "@/services/currency-service";
+import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+
+export const getCurrencyError = () => {
+  return new Promise<AxiosResponse<CurrenciesDTO>>((res, rej) => {
+    return setTimeout(() => {
+      return rej({
+        config: {} as InternalAxiosRequestConfig,
+        data: undefined,
+        headers: {},
+        status: 404,
+        statusText: "",
+      });
+    }, 100);
+  });
+};
+
+export const CurrencyhandlerError: CurrecyService = {
+  getCurrencies() {
+    return getCurrencyError();
+  },
+};

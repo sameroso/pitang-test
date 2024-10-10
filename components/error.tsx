@@ -14,6 +14,7 @@ interface ErrorComponentProps {
   description: string;
   onRetry: () => Promise<void> | void;
   cardClassName?: string;
+  dataTestid: string;
 }
 
 export function ErrorComponent({
@@ -21,9 +22,11 @@ export function ErrorComponent({
   description,
   onRetry,
   cardClassName,
+  dataTestid,
 }: ErrorComponentProps) {
   return (
     <Card
+      data-testid={dataTestid}
       className={cn(
         "w-full max-w-md mx-auto border-none bg-transparent",
         cardClassName

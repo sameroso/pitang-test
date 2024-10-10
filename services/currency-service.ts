@@ -1,8 +1,17 @@
 import { fixerResponseMock } from "@/testing/mocks/fixer-api-mock";
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
+export interface CurrenciesDTO {
+  success: boolean;
+  timestamp: number;
+  historical: boolean;
+  base: string;
+  date: string;
+  rates: Record<string, number>;
+}
+
 export const getCurrencies = () => {
-  return new Promise<AxiosResponse<typeof fixerResponseMock>>((res) => {
+  return new Promise<AxiosResponse<CurrenciesDTO>>((res) => {
     return setTimeout(() => {
       return res({
         config: {} as InternalAxiosRequestConfig,
@@ -11,6 +20,14 @@ export const getCurrencies = () => {
         status: 200,
         statusText: "",
       });
-    }, 1000);
+    }, 100);
   });
+};
+
+export interface CurrecyService {
+  getCurrencies: () => Promise<AxiosResponse<CurrenciesDTO>>;
+}
+
+export const currencyService: CurrecyService = {
+  getCurrencies,
 };

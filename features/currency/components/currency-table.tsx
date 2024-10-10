@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { useGetCurrenciesQuery } from "../api/currency-api";
 import { ErrorComponent } from "@/components/error";
+import { mapCurrencyToTableValues } from "../convert-base-currency";
 
 export const columns: ColumnDef<{
   currency: string;
@@ -34,10 +35,10 @@ export const columns: ColumnDef<{
     header: ({ column }) => {
       return (
         <Button
+          data-testid="sort-currency-button"
           variant="ghost"
           onClick={() => {
-            console.log(column.getIsSorted());
-            return column.toggleSorting(
+            column.toggleSorting(
               column.getIsSorted() === "asc" || !column.getIsSorted()
             );
           }}
@@ -56,6 +57,7 @@ export const columns: ColumnDef<{
     header: ({ column }) => {
       return (
         <Button
+          data-testid="sort-rate-button"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -96,24 +98,12 @@ export const columns: ColumnDef<{
   },
 ];
 
-export function DataTableDemo() {
+export function CurrencyTable() {
   const { data, isError, isSuccess, refetch, isFetching } =
     useGetCurrenciesQuery();
 
   const memoizedData = React.useMemo(() => {
-    const converToBRLRate = (val: number) => {
-      const baseCurrencyValue =
-        data?.rates[data.base as keyof typeof data.rates] || 0;
-      const brlCurrencyValue = data?.rates?.BRL || 1;
-
-      return (baseCurrencyValue / brlCurrencyValue) * val;
-    };
-
-    return Object.entries(data?.rates || {}).map(([currency, value]) => ({
-      currency,
-      value: converToBRLRate(value) as number,
-      date: data?.date || "",
-    }));
+    return mapCurrencyToTableValues(data!);
   }, [data]);
 
   const table = useReactTable({
@@ -133,13 +123,11 @@ export function DataTableDemo() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                    <TableHead key={header.id} id={header.id}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                     </TableHead>
                   );
                 })}
@@ -149,9 +137,18 @@ export function DataTableDemo() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow
+                  key={row.getValue("currency")}
+                  id={row.getValue("currency")}
+                  data-testid={row.getValue("currency")}
+                >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      data-testid={`${row.getValue(
+                        "currency"
+                      )}-${cell.getValue()}`}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -177,6 +174,7 @@ export function DataTableDemo() {
                     <TableCell
                       colSpan={columns.length}
                       className="h-24 text-center"
+                      data-testid="loading-table"
                     >
                       Carregando
                     </TableCell>
@@ -189,6 +187,7 @@ export function DataTableDemo() {
                       className="h-24 text-center"
                     >
                       <ErrorComponent
+                        dataTestid="load-table-error"
                         description="Ocorreu um erro ao carregar as informações, por favor tente novamente"
                         title="Falha ao carregar as informações"
                         onRetry={() => {
@@ -207,6 +206,7 @@ export function DataTableDemo() {
         <div className="space-x-2">
           <Button
             variant="outline"
+            data-testid="previous-button"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -216,6 +216,7 @@ export function DataTableDemo() {
           <Button
             variant="outline"
             size="sm"
+            data-testid="next-button"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
