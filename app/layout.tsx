@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import StoreProvider from "@/lib/redux/store-provider";
 import { ThemeProvider } from "@/lib/styles/theme-provider";
-import { Header } from "@/components/header";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +38,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
+            <Toaster />
             <div className="container mx-auto my-5">{children}</div>
           </ThemeProvider>
         </body>
