@@ -23,7 +23,9 @@ describe("LoginForm", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(screen.getByText("Campo Obrigatório")).toBeInTheDocument();
+      expect(
+        screen.getByText("Senha precisa conter no mínimo 8 caracteres")
+      ).toBeInTheDocument();
       expect(screen.getByText("Email Inválido")).toBeInTheDocument();
     });
   });
@@ -37,22 +39,7 @@ describe("LoginForm", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(screen.getByText("Invalid email address")).toBeInTheDocument();
-    });
-  });
-
-  it("displays specific error message for short password", async () => {
-    render(<LoginForm onSubmit={mockOnSubmit} />);
-
-    fireEvent.input(screen.getByLabelText("Password"), {
-      target: { value: "short" },
-    });
-    fireEvent.submit(screen.getByRole("form"));
-
-    await waitFor(() => {
-      expect(
-        screen.getByText("Password must be at least 8 characters long")
-      ).toBeInTheDocument();
+      expect(screen.getByText("Email Inválido")).toBeInTheDocument();
     });
   });
 

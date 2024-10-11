@@ -5,12 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
 interface AuthCard {
   title: string;
   description: string;
-  footerElements?: ReactNode;
 }
 
 export const AuthCard = (props: PropsWithChildren<AuthCard>) => {
@@ -18,9 +17,7 @@ export const AuthCard = (props: PropsWithChildren<AuthCard>) => {
     <Card className="w-[400px]">
       <CardHeader>
         <CardTitle>{props.title}</CardTitle>
-        <CardDescription>
-          {props.description}
-        </CardDescription>
+        <CardDescription>{props.description}</CardDescription>
       </CardHeader>
       {props.children}
     </Card>

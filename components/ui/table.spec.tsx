@@ -1,107 +1,173 @@
 import { render, screen } from "@testing-library/react";
 import {
   Table,
+  TableHeader,
   TableBody,
-  TableCaption,
-  TableCell,
   TableFooter,
   TableHead,
-  TableHeader,
   TableRow,
+  TableCell,
+  TableCaption,
 } from "./table";
 
-describe("Table tests", () => {
-  it("should render table correctly", () => {
-    render(<Table />);
-    expect(screen.getByRole("table")).toBeInTheDocument();
+describe("Table Components", () => {
+  describe("Table", () => {
+    it("renders correctly", () => {
+      render(<Table data-testid="table" />);
+      const table = screen.getByTestId("table");
+      expect(table).toBeInTheDocument();
+      expect(table).toHaveClass("w-full caption-bottom text-sm");
+    });
+
+    it("applies custom className", () => {
+      render(<Table data-testid="table" className="custom-class" />);
+      expect(screen.getByTestId("table")).toHaveClass("custom-class");
+    });
   });
 
-  it("should table match snapshot", () => {
-    const { container } = render(<Table />);
-    expect(container).toMatchSnapshot();
-  });
-});
+  describe("TableHeader", () => {
+    it("renders correctly", () => {
+      render(<TableHeader data-testid="table-header" />);
+      const header = screen.getByTestId("table-header");
+      expect(header).toBeInTheDocument();
+      expect(header).toHaveClass("[&_tr]:border-b");
+    });
 
-describe("Table header tests", () => {
-  it("should render table header", () => {
-    const { container } = render(<TableHeader />);
-    expect(container).toBeInTheDocument();
-  });
-
-  it("should table header match snapshot", () => {
-    const { container } = render(<TableHeader />);
-    expect(container).toMatchSnapshot();
-  });
-});
-
-describe("Table body tests", () => {
-  it("should render table body", () => {
-    const { container } = render(<TableBody />);
-    expect(container).toBeInTheDocument();
+    it("applies custom className", () => {
+      render(
+        <TableHeader data-testid="table-header" className="custom-class" />
+      );
+      expect(screen.getByTestId("table-header")).toHaveClass("custom-class");
+    });
   });
 
-  it("should table body match snapshot", () => {
-    const { container } = render(<TableBody />);
-    expect(container).toMatchSnapshot();
-  });
-});
+  describe("TableBody", () => {
+    it("renders correctly", () => {
+      render(<TableBody data-testid="table-body" />);
+      const body = screen.getByTestId("table-body");
+      expect(body).toBeInTheDocument();
+      expect(body).toHaveClass("[&_tr:last-child]:border-0");
+    });
 
-describe("Table footer tests", () => {
-  it("should render table footer", () => {
-    const { container } = render(<TableFooter />);
-    expect(container).toBeInTheDocument();
-  });
-
-  it("should table footer match snapshot", () => {
-    const { container } = render(<TableFooter />);
-    expect(container).toMatchSnapshot();
-  });
-});
-
-describe("Table row tests", () => {
-  it("should render table row", () => {
-    const { container } = render(<TableRow />);
-    expect(container).toBeInTheDocument();
+    it("applies custom className", () => {
+      render(<TableBody data-testid="table-body" className="custom-class" />);
+      expect(screen.getByTestId("table-body")).toHaveClass("custom-class");
+    });
   });
 
-  it("should table row match snapshot", () => {
-    const { container } = render(<TableRow />);
-    expect(container).toMatchSnapshot();
-  });
-});
+  describe("TableFooter", () => {
+    it("renders correctly", () => {
+      render(<TableFooter data-testid="table-footer" />);
+      const footer = screen.getByTestId("table-footer");
+      expect(footer).toBeInTheDocument();
+      expect(footer).toHaveClass(
+        "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0"
+      );
+    });
 
-describe("Table head tests", () => {
-  it("should render table head", () => {
-    const { container } = render(<TableHead />);
-    expect(container).toBeInTheDocument();
-  });
-
-  it("should table head match snapshot", () => {
-    const { container } = render(<TableHead />);
-    expect(container).toMatchSnapshot();
-  });
-});
-
-describe("Table cell tests", () => {
-  it("should render table cell", () => {
-    const { container } = render(<TableCell />);
-    expect(container).toBeInTheDocument();
+    it("applies custom className", () => {
+      render(
+        <TableFooter data-testid="table-footer" className="custom-class" />
+      );
+      expect(screen.getByTestId("table-footer")).toHaveClass("custom-class");
+    });
   });
 
-  it("should table cell match snapshot", () => {
-    const { container } = render(<TableCell />);
-    expect(container).toMatchSnapshot();
-  });
-});
+  describe("TableRow", () => {
+    it("renders correctly", () => {
+      render(<TableRow data-testid="table-row" />);
+      const row = screen.getByTestId("table-row");
+      expect(row).toBeInTheDocument();
+      expect(row).toHaveClass(
+        "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      );
+    });
 
-describe("Table caption tests", () => {
-  it("should render table caption", () => {
-    const { container } = render(<TableCaption>caption</TableCaption>);
-    expect(container).toBeInTheDocument();
+    it("applies custom className", () => {
+      render(<TableRow data-testid="table-row" className="custom-class" />);
+      expect(screen.getByTestId("table-row")).toHaveClass("custom-class");
+    });
   });
 
-  it("should table caption match snapshot", () => {
-    const { container } = render(<TableCaption>caption</TableCaption>);
-    expect(container).toMatchSnapshot();
+  describe("TableHead", () => {
+    it("renders correctly", () => {
+      render(<TableHead data-testid="table-head" />);
+      const head = screen.getByTestId("table-head");
+      expect(head).toBeInTheDocument();
+      expect(head).toHaveClass(
+        "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+      );
+    });
+
+    it("applies custom className", () => {
+      render(<TableHead data-testid="table-head" className="custom-class" />);
+      expect(screen.getByTestId("table-head")).toHaveClass("custom-class");
+    });
+  });
+
+  describe("TableCell", () => {
+    it("renders correctly", () => {
+      render(<TableCell data-testid="table-cell" />);
+      const cell = screen.getByTestId("table-cell");
+      expect(cell).toBeInTheDocument();
+      expect(cell).toHaveClass(
+        "p-4 align-middle [&:has([role=checkbox])]:pr-0"
+      );
+    });
+
+    it("applies custom className", () => {
+      render(<TableCell data-testid="table-cell" className="custom-class" />);
+      expect(screen.getByTestId("table-cell")).toHaveClass("custom-class");
+    });
+  });
+
+  describe("TableCaption", () => {
+    it("renders correctly", () => {
+      render(<TableCaption data-testid="table-caption" />);
+      const caption = screen.getByTestId("table-caption");
+      expect(caption).toBeInTheDocument();
+      expect(caption).toHaveClass("mt-4 text-sm text-muted-foreground");
+    });
+
+    it("applies custom className", () => {
+      render(
+        <TableCaption data-testid="table-caption" className="custom-class" />
+      );
+      expect(screen.getByTestId("table-caption")).toHaveClass("custom-class");
+    });
+  });
+
+  describe("Table Integration", () => {
+    it("renders a complete table structure", () => {
+      render(
+        <Table>
+          <TableCaption>A test table</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Header 1</TableHead>
+              <TableHead>Header 2</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Cell 1</TableCell>
+              <TableCell>Cell 2</TableCell>
+            </TableRow>
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={2}>Footer</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      );
+
+      expect(screen.getByText("A test table")).toBeInTheDocument();
+      expect(screen.getByText("Header 1")).toBeInTheDocument();
+      expect(screen.getByText("Header 2")).toBeInTheDocument();
+      expect(screen.getByText("Cell 1")).toBeInTheDocument();
+      expect(screen.getByText("Cell 2")).toBeInTheDocument();
+      expect(screen.getByText("Footer")).toBeInTheDocument();
+    });
   });
 });

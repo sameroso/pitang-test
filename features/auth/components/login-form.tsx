@@ -10,7 +10,7 @@ const loginSchema = z.object({
   email: z.string().email({ message: "Email Inválido" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
+    .min(8, { message: "Senha precisa conter no mínimo 8 caracteres" }),
 });
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
