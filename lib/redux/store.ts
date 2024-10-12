@@ -1,7 +1,7 @@
 import { userApi } from "@/features/auth/api/user";
 import { currenciesApi } from "@/features/currency/api/currency-api";
-import { AuthService } from "@/services/auth-service";
-import { CurrecyService } from "@/services/currency-service";
+import { IAuthService } from "@/services/auth-service";
+import { ICurrecyService } from "@/services/currency-service";
 import { configureStore } from "@reduxjs/toolkit";
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
@@ -29,8 +29,8 @@ export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
 export type ExtraArgument = {
-  currencyService: CurrecyService;
-  authService: AuthService;
+  currencyService: ICurrecyService;
+  authService: IAuthService;
 };
 
 export type ExtraOptions = BaseQueryApi & { extra: ExtraArgument };

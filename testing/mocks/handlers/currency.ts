@@ -1,4 +1,4 @@
-import { CurrecyService, CurrenciesDTO } from "@/services/currency-service";
+import { ICurrecyService, CurrenciesDTO } from "@/services/currency-service";
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 export const getCurrencyError = () => {
@@ -15,7 +15,7 @@ export const getCurrencyError = () => {
   });
 };
 
-export const CurrencyhandlerError: CurrecyService = {
+export const CurrencyhandlerError: ICurrecyService = {
   getCurrencies() {
     return getCurrencyError();
   },

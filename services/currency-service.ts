@@ -24,10 +24,10 @@ export const getCurrencies = () => {
   });
 };
 
-export interface CurrecyService {
+export interface ICurrecyService {
   getCurrencies: () => Promise<AxiosResponse<CurrenciesDTO>>;
 }
 
-export const currencyService: CurrecyService = {
+export const currencyService: ICurrecyService = {
   getCurrencies,
 };

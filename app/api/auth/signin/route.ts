@@ -1,8 +1,7 @@
-import { dbApi } from "@/http/dbApi";
-import { UserService } from "@/services/user-service";
+import { userService } from "@/services/user-service";
 import { cookies } from "next/headers";
 import { changeTimeFromDaysToMilisecondsFromCurrentDate } from "@/lib/cookies";
-import { SettingsService } from "@/services/user-preferences-service";
+import { userPreferencesService } from "@/services/user-preferences-service";
 
 export async function POST(request: Request) {
   const cookieStorage = cookies();
@@ -10,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const res = await UserService.create(dbApi).getUserByEmail(body.email);
+    const res = await userService.getUserByEmail(body.email);
 
     if (res.data.length === 0) {
       return new Response("Email não encontrado", { status: 400 });
@@ -24,9 +23,7 @@ export async function POST(request: Request) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = data;
 
-    const settingsService = SettingsService.create(dbApi);
-
-    const settings = await settingsService.getUserSettingsByUserId(
+    const settings = await userPreferencesService.getUserSettingsByUserId(
       res?.data?.[0].id
     );
 

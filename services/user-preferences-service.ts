@@ -1,6 +1,7 @@
 // import { api } from "@/http/api";
 // import { dbApi } from "@/http/dbApi";
 import { CreateSettingsDto, SettingsDto } from "@/dtos/user";
+import { dbApi } from "@/http/dbApi";
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 
@@ -17,16 +18,16 @@ type UpdateSettings = (
   settings: SettingsDto
 ) => PromisifyAxiosResponse<Partial<SettingsDto>>;
 
-export interface ISettingsService {
+export interface IUserPreferencerService {
   getUserSettingsByUserId: GetUserSettingsByUserId;
   create: CreateSettings;
   update: UpdateSettings;
 }
 
-export class SettingsService implements ISettingsService {
+export class UserPreferencesService implements IUserPreferencerService {
   private constructor(public api: AxiosInstance) {}
   static create(api: AxiosInstance) {
-    return new SettingsService(api);
+    return new UserPreferencesService(api);
   }
 
   create: CreateSettings = (settings) => {
@@ -41,3 +42,5 @@ export class SettingsService implements ISettingsService {
     return this.api.get<SettingsDto[]>(`/preferences?user_id=${userId}`);
   };
 }
+
+export const userPreferencesService = UserPreferencesService.create(dbApi);

@@ -1,6 +1,5 @@
-// import { api } from "@/http/api";
-// import { dbApi } from "@/http/dbApi";
 import { AuthUserDto, RequestUserDto } from "@/dtos/user";
+import { api } from "@/http/api";
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 
@@ -37,3 +36,5 @@ export class AuthService implements IAuthService {
     return this.api.post<AuthUserDto>("/api/auth/logout");
   };
 }
+
+export const authService = AuthService.create(api);

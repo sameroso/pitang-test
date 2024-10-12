@@ -3,6 +3,7 @@
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 import { RequestUserDto, UserDto } from "@/dtos/user";
+import { dbApi } from "@/http/dbApi";
 
 type GetUserById = (id: string) => PromisifyAxiosResponse<UserDto>;
 type GetUserByEmail = (email: string) => PromisifyAxiosResponse<UserDto[]>;
@@ -37,3 +38,5 @@ export class UserService implements IUserService {
     return this.api.patch<UserDto>(`/users/${id}`, user);
   };
 }
+
+export const userService = UserService.create(dbApi);
