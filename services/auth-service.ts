@@ -1,4 +1,4 @@
-import { AuthUserDto, RequestUserDto } from "@/dtos/user";
+import { AuthUserDto, RequestUserDto, UserDto } from "@/dtos/user";
 import { api } from "@/http/api";
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
@@ -11,11 +11,13 @@ type SignIn = (credentials: {
 type Logout = () => PromisifyAxiosResponse<AuthUserDto>;
 
 type SignUp = (user: RequestUserDto) => PromisifyAxiosResponse<AuthUserDto>;
+type UpdateUser = (user: UserDto) => PromisifyAxiosResponse<AuthUserDto>;
 
 export interface IAuthService {
   signIn: SignIn;
   signUp: SignUp;
   logout: Logout;
+  updateUser: UpdateUser;
 }
 
 export class AuthService implements IAuthService {
@@ -34,6 +36,11 @@ export class AuthService implements IAuthService {
 
   logout: Logout = () => {
     return this.api.post<AuthUserDto>("/api/auth/logout");
+  };
+
+  updateUser: UpdateUser = (user) => {
+    const { id, ...rest } = user;
+    return this.api.patch<AuthUserDto>(`/api/auth/user/${id}`, rest);
   };
 }
 

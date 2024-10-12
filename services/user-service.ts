@@ -3,7 +3,7 @@
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 import { RequestUserDto, UserDto } from "@/dtos/user";
-import { dbApi } from "@/http/dbApi";
+import { dbApi } from "@/http/db-api";
 
 type GetUserById = (id: string) => PromisifyAxiosResponse<UserDto>;
 type GetUserByEmail = (email: string) => PromisifyAxiosResponse<UserDto[]>;
@@ -26,7 +26,7 @@ export class UserService implements IUserService {
     return new UserService(api);
   }
   getUserById: GetUserById = (id) => {
-    return this.api.get<UserDto>(`/user/${id}`);
+    return this.api.get<UserDto>(`/users/${id}`);
   };
   createUser: CreateUser = (user) => {
     return this.api.post<UserDto>(`/users`, user);

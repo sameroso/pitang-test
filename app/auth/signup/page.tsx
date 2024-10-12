@@ -7,14 +7,15 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/toggle-theme";
 import axios from "axios";
-import {
-  RegisterFormValues,
-  SignupForm,
-} from "@/features/auth/components/signup-form";
+import { SignupForm } from "@/features/auth/components/signup-form";
 import { useSignUpMutation } from "@/features/auth/api/user";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  createUserSchema,
+  UserFormValues,
+} from "@/features/auth/components/user-schema";
 
 export default function RegisterTemplate() {
   const { toast } = useToast();
@@ -22,7 +23,7 @@ export default function RegisterTemplate() {
   const [signup, signupData] = useSignUpMutation();
   const { push } = useRouter();
 
-  const onSubmit = async (data: RegisterFormValues) => {
+  const onSubmit = async (data: UserFormValues) => {
     const res = await signup({
       country: data.country,
       email: data.email,
@@ -52,7 +53,7 @@ export default function RegisterTemplate() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <AuthCard title="Registrar" description="Crie sua conta para começar">
         <CardContent>
-          <SignupForm onSubmit={onSubmit}>
+          <SignupForm onSubmit={onSubmit} schema={createUserSchema}>
             <Button
               type="submit"
               className="w-full"

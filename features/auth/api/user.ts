@@ -1,16 +1,31 @@
-import { AuthUserDto, RequestUserDto } from "@/dtos/user";
+import { AuthUserDto, RequestUserDto, UserDto } from "@/dtos/user";
+import { getCookies } from "@/lib/cookies";
 import { ExtraOptions } from "@/lib/redux/store";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: async (args, api, extraOptions) => {
-    const res = await (extraOptions as ExtraOptions).extra.authService.signIn(
-      args
-    );
-    return { data: res.data };
+  tagTypes: ["user"],
+  baseQuery: async () => {
+    try {
+      const res = getCookies(document.cookie);
+      return { data: res.user };
+    } catch (e: unknown) {
+      return { error: e };
+    }
   },
   endpoints: (builder) => ({
+    getUser: builder.query<AuthUserDto, void>({
+      queryFn: async () => {
+        try {
+          const res = getCookies(document.cookie);
+          return { data: res.user };
+        } catch (e: unknown) {
+          return { error: e };
+        }
+      },
+      providesTags: () => [{ type: "user", id: "getuser" }],
+    }),
     signIn: builder.mutation<AuthUserDto, { email: string; password: string }>({
       queryFn: async ({ email, password }, extraOptions: ExtraOptions) => {
         try {
@@ -23,6 +38,8 @@ export const userApi = createApi({
           return { error: e };
         }
       },
+
+      invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
     signUp: builder.mutation<RequestUserDto, RequestUserDto>({
       queryFn: async (user, extraOptions: ExtraOptions) => {
@@ -33,6 +50,7 @@ export const userApi = createApi({
           return { error: e };
         }
       },
+      invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
 
     logout: builder.mutation<AuthUserDto, void>({
@@ -44,9 +62,27 @@ export const userApi = createApi({
           return { error: e };
         }
       },
+      invalidatesTags: [{ type: "user", id: "getuser" }],
+    }),
+
+    updateUser: builder.mutation<AuthUserDto, UserDto>({
+      queryFn: async (user, extraOptions: ExtraOptions) => {
+        try {
+          const res = await extraOptions.extra.authService.updateUser(user);
+          return { data: res.data };
+        } catch (e: unknown) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation, useLogoutMutation } =
-  userApi;
+export const {
+  useSignInMutation,
+  useSignUpMutation,
+  useLogoutMutation,
+  useGetUserQuery,
+  useUpdateUserMutation,
+} = userApi;

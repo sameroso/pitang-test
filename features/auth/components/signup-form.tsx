@@ -10,44 +10,32 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import * as z from "zod";
 import { PropsWithChildren } from "react";
 import { countriesptBr } from "@/lib/country";
+import { UserFormValues, UserSchema } from "./user-schema";
 
-const registerSchema = z.object({
-  firstName: z
-    .string()
-    .min(2, { message: "Nome deve ter pelo menos 2 caracteres" }),
-  lastName: z
-    .string()
-    .min(2, { message: "Sobrenome deve ter pelo menos 2 caracteres" }),
-  country: z
-    .string({ required_error: "Selecione um país" })
-    .min(1, { message: "Selecione um país" }),
-  email: z.string().email({ message: "Email inválido" }),
-  password: z
-    .string()
-    .min(8, { message: "Senha precisa conter no mínimo 8 caracteres" }),
-});
-
-export type RegisterFormValues = z.infer<typeof registerSchema>;
-
-interface SignupFormProps {
-  onSubmit: (values: RegisterFormValues) => void;
+export interface SignupFormProps {
+  defaultValues?: UserFormValues;
+  onSubmit: (values: UserFormValues) => void;
+  mode?: "partial" | "required";
+  schema: UserSchema;
 }
 
 export const SignupForm = ({
   onSubmit,
   children,
+  defaultValues,
+  schema,
 }: PropsWithChildren<SignupFormProps>) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<RegisterFormValues>({
-    defaultValues: { country: undefined },
-    resolver: zodResolver(registerSchema),
+    getValues,
+  } = useForm<UserFormValues>({
+    defaultValues: { country: undefined, ...defaultValues },
+    resolver: zodResolver(schema),
   });
 
   return (
@@ -68,7 +56,10 @@ export const SignupForm = ({
       </div>
       <div className="space-y-2">
         <Label htmlFor="country">Country</Label>
-        <Select onValueChange={(value) => setValue("country", value)}>
+        <Select
+          defaultValue={getValues("country")}
+          onValueChange={(value) => setValue("country", value)}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Selecione um país" />
           </SelectTrigger>
@@ -95,13 +86,9 @@ export const SignupForm = ({
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Senha</Label>
-        <Input
-          id="password"
-          placeholder="password1234"
-          {...register("password")}
-        />
-        {errors.email && (
-          <p className="text-sm text-destructive">{errors.email.message}</p>
+        <Input id="text" placeholder="password1234" {...register("password")} />
+        {errors.password && (
+          <p className="text-sm text-destructive">{errors.password.message}</p>
         )}
       </div>
       {children}

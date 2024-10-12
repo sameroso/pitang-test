@@ -1,6 +1,6 @@
-import { dbApi } from "@/http/dbApi";
+import { dbApi } from "@/http/db-api";
 import { changeTimeFromDaysToMilisecondsFromCurrentDate } from "@/lib/cookies";
-import { SettingsService } from "@/services/user-preferences-service";
+import { userPreferencesService } from "@/services/user-preferences-service";
 import { UserService } from "@/services/user-service";
 import { cookies } from "next/headers";
 
@@ -11,8 +11,6 @@ export async function POST(request: Request) {
 
     const userService = UserService.create(dbApi);
 
-    const settingsService = SettingsService.create(dbApi);
-
     const user = await userService.getUserByEmail(body.email);
 
     if (user?.data?.length > 0) {
@@ -20,7 +18,9 @@ export async function POST(request: Request) {
     }
 
     const res = await userService.createUser(body);
-    const settings = await settingsService.create({ user_id: res.data.id });
+    const settings = await userPreferencesService.create({
+      user_id: res.data.id,
+    });
 
     const data = { ...res.data };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

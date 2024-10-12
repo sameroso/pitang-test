@@ -1,7 +1,7 @@
 // import { api } from "@/http/api";
 // import { dbApi } from "@/http/dbApi";
 import { CreateSettingsDto, SettingsDto } from "@/dtos/user";
-import { dbApi } from "@/http/dbApi";
+import { dbApi } from "@/http/db-api";
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 
