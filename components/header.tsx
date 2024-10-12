@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,39 +8,49 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "./toggle-theme";
+import { useLogoutMutation } from "@/features/auth/api/user";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [logout] = useLogoutMutation();
 
-  const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+  const { toast } = useToast();
 
+  const { push } = useRouter();
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (axios.isAxiosError(res.error)) {
+      toast({
+        title: "Ocorreu algum problema",
+        description: res.error.response?.data,
+        variant: "destructive",
+      });
+      return;
+    }
+    push("/auth/login");
+  };
+  
   return (
     <header className="w-full px-4 lg:px-6 h-14 flex items-center">
       <div className="flex w-full justify-between items-center">
         <span className="text-lg font-bold">My App</span>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          {isLoggedIn ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="h-9 w-9 cursor-pointer">
-                  <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout}>
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button onClick={handleLogin} size="sm">
-              <User className="mr-2 h-4 w-4" />
-              Login
-            </Button>
-          )}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="h-9 w-9 cursor-pointer">
+                <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>

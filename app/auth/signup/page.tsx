@@ -6,15 +6,21 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/toggle-theme";
-import { AuthCard } from "./auth-card";
-import { RegisterFormValues, SignupForm } from "./signup-form";
-import { useSignUpMutation } from "../api/user";
 import axios from "axios";
+import {
+  RegisterFormValues,
+  SignupForm,
+} from "@/features/auth/components/signup-form";
+import { useSignUpMutation } from "@/features/auth/api/user";
+import { AuthCard } from "@/features/auth/components/auth-card";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RegisterTemplate() {
   const { toast } = useToast();
 
   const [signup, signupData] = useSignUpMutation();
+  const { push } = useRouter();
 
   const onSubmit = async (data: RegisterFormValues) => {
     const res = await signup({
@@ -39,6 +45,7 @@ export default function RegisterTemplate() {
       title: "Cadastro feito com sucesso",
       description: `Bem vindo, ${res.data?.first_name}!`,
     });
+    push("/");
   };
 
   return (
@@ -57,7 +64,9 @@ export default function RegisterTemplate() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <ThemeToggle />
-          <Button variant="link">Already have an account?</Button>
+          <Link href="/auth/login">
+            <Button variant="link">Já tem uma conta?</Button>
+          </Link>
         </CardFooter>
       </AuthCard>
     </div>

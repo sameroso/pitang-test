@@ -25,6 +25,9 @@ const registerSchema = z.object({
     .string({ required_error: "Selecione um país" })
     .min(1, { message: "Selecione um país" }),
   email: z.string().email({ message: "Email inválido" }),
+  password: z
+    .string()
+    .min(8, { message: "Senha precisa conter no mínimo 8 caracteres" }),
 });
 
 export type RegisterFormValues = z.infer<typeof registerSchema>;
@@ -77,11 +80,6 @@ export const SignupForm = ({
                 </SelectItem>
               );
             })}
-            <SelectItem value="us">United States</SelectItem>
-            <SelectItem value="uk">United Kingdom</SelectItem>
-            <SelectItem value="ca">Canada</SelectItem>
-            <SelectItem value="au">Australia</SelectItem>
-            {/* Add more countries as needed */}
           </SelectContent>
         </Select>
         {errors.country && (
@@ -91,6 +89,17 @@ export const SignupForm = ({
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input id="email" placeholder="m@example.com" {...register("email")} />
+        {errors.email && (
+          <p className="text-sm text-destructive">{errors.email.message}</p>
+        )}
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Senha</Label>
+        <Input
+          id="password"
+          placeholder="password1234"
+          {...register("password")}
+        />
         {errors.email && (
           <p className="text-sm text-destructive">{errors.email.message}</p>
         )}

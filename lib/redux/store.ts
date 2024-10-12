@@ -1,4 +1,6 @@
+import { userApi } from "@/features/auth/api/user";
 import { currenciesApi } from "@/features/currency/api/currency-api";
+import { AuthService } from "@/services/auth-service";
 import { CurrecyService } from "@/services/currency-service";
 import { configureStore } from "@reduxjs/toolkit";
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
@@ -7,6 +9,7 @@ export const makeStore = (extraArgument: ExtraArgument) => {
   return configureStore({
     reducer: {
       [currenciesApi.reducerPath]: currenciesApi.reducer,
+      [userApi.reducerPath]: userApi.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
@@ -14,7 +17,9 @@ export const makeStore = (extraArgument: ExtraArgument) => {
         thunk: {
           extraArgument,
         },
-      }).concat(currenciesApi.middleware),
+      })
+        .concat(currenciesApi.middleware)
+        .concat(userApi.middleware),
   });
 };
 
@@ -25,6 +30,7 @@ export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
 export type ExtraArgument = {
   currencyService: CurrecyService;
+  authService: AuthService;
 };
 
 export type ExtraOptions = BaseQueryApi & { extra: ExtraArgument };

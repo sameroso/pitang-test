@@ -24,6 +24,7 @@ import {
 import { useGetCurrenciesQuery } from "../api/currency-api";
 import { ErrorComponent } from "@/components/error";
 import { mapCurrencyToTableValues } from "../convert-base-currency";
+import { getCookies } from "@/lib/cookies";
 
 export const columns: ColumnDef<{
   currency: string;
@@ -101,6 +102,8 @@ export const columns: ColumnDef<{
 export function CurrencyTable() {
   const { data, isError, isSuccess, refetch, isFetching } =
     useGetCurrenciesQuery();
+
+  console.log(getCookies(document.cookie));
 
   const memoizedData = React.useMemo(() => {
     return mapCurrencyToTableValues(data!);

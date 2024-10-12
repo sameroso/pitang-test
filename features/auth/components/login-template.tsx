@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 
 import { CardContent, CardFooter } from "@/components/ui/card";
@@ -9,20 +7,30 @@ import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/toggle-theme";
 import { AuthCard } from "./auth-card";
 import { LoginForm, LoginFormValues } from "./login-form";
+import { useSignInMutation } from "../api/user";
+import axios from "axios";
 
 export default function LoginPage() {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [signIn, data] = useSignInMutation();
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log({ data });
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsLoading(false);
+    const res = await signIn(data);
+
+    if (axios.isAxiosError(res.error)) {
+      toast({
+        title: "Ocorreu algum problema",
+        description: res.error.response?.data,
+        variant: "destructive",
+      });
+
+      return;
+    }
+
     toast({
-      title: "Login Successful",
-      description: `Welcome back, ${data.email}!`,
-      variant: "destructive",
+      title: "Login feito com sucesso",
+      description: `Bem vindo de volta, ${res.data?.first_name}!`,
     });
   };
 
@@ -34,8 +42,8 @@ export default function LoginPage() {
       >
         <CardContent>
           <LoginForm onSubmit={onSubmit}>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Login"}
+            <Button type="submit" className="w-full" disabled={data.isLoading}>
+              {data.isLoading ? "Logging in..." : "Login"}
             </Button>
           </LoginForm>
         </CardContent>
