@@ -1,22 +1,22 @@
 // import { api } from "@/http/api";
 // import { dbApi } from "@/http/dbApi";
-import { CreateSettingsDto, SettingsDto } from "@/dtos/user";
+import { CreatePreferencesDto, PreferencesDto } from "@/dtos/user";
 import { dbApi } from "@/http/db-api";
 import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 
 type GetUserSettingsByUserId = (
   userId: string
-) => PromisifyAxiosResponse<Partial<SettingsDto>[]>;
+) => PromisifyAxiosResponse<Partial<PreferencesDto>[]>;
 
 type CreateSettings = (
-  settings: CreateSettingsDto
-) => PromisifyAxiosResponse<Partial<SettingsDto>>;
+  settings: CreatePreferencesDto
+) => PromisifyAxiosResponse<Partial<PreferencesDto>>;
 
 type UpdateSettings = (
   userId: string,
-  settings: SettingsDto
-) => PromisifyAxiosResponse<Partial<SettingsDto>>;
+  settings: Partial<CreatePreferencesDto>
+) => PromisifyAxiosResponse<Partial<PreferencesDto>>;
 
 export interface IUserPreferencerService {
   getUserSettingsByUserId: GetUserSettingsByUserId;
@@ -31,15 +31,15 @@ export class UserPreferencesService implements IUserPreferencerService {
   }
 
   create: CreateSettings = (settings) => {
-    return this.api.post<SettingsDto>("/preferences", settings);
+    return this.api.post<PreferencesDto>("/preferences", settings);
   };
 
   update: UpdateSettings = (id, settings) => {
-    return this.api.patch<SettingsDto>(`/preferences/${id}`, settings);
+    return this.api.patch<PreferencesDto>(`/preferences/${id}`, settings);
   };
 
   getUserSettingsByUserId: GetUserSettingsByUserId = (userId) => {
-    return this.api.get<SettingsDto[]>(`/preferences?user_id=${userId}`);
+    return this.api.get<PreferencesDto[]>(`/preferences?user_id=${userId}`);
   };
 }
 

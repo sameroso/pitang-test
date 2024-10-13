@@ -1,5 +1,6 @@
 import { userApi } from "@/features/auth/api/user";
 import { currenciesApi } from "@/features/currency/api/currency-api";
+import { preferencesApi } from "@/features/preferences/api/preferences";
 import { IAuthService } from "@/services/auth-service";
 import { ICurrecyService } from "@/services/currency-service";
 import { configureStore } from "@reduxjs/toolkit";
@@ -10,6 +11,7 @@ export const makeStore = (extraArgument: ExtraArgument) => {
     reducer: {
       [currenciesApi.reducerPath]: currenciesApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
+      [preferencesApi.reducerPath]: preferencesApi.reducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) =>
@@ -19,7 +21,8 @@ export const makeStore = (extraArgument: ExtraArgument) => {
         },
       })
         .concat(currenciesApi.middleware)
-        .concat(userApi.middleware),
+        .concat(userApi.middleware)
+        .concat(preferencesApi.middleware),
   });
 };
 

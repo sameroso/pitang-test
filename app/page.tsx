@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <CurrencyTable />
+      <div className="container mx-auto my-5">
+        <CurrencyTable />
+      </div>
     </>
   );
 }

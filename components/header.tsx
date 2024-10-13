@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,21 +7,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "./toggle-theme";
-import { useLogoutMutation } from "@/features/auth/api/user";
+import { useGetUserQuery, useLogoutMutation } from "@/features/auth/api/user";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { EditUserDialog } from "@/features/auth/components/edit-user-form";
 import { useState } from "react";
+import { UserPreferencesDialog } from "@/features/preferences/components/preferences-modal";
+import { Button } from "./ui/button";
 
 export function Header() {
   const [logout] = useLogoutMutation();
+  const [isPreferencesDialogOpen, setIsPreferencesDialogOpen] = useState(false);
 
   const { toast } = useToast();
 
   const { push } = useRouter();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { data } = useGetUserQuery();
 
   const handleLogout = async () => {
     const res = await logout();
@@ -50,18 +54,26 @@ export function Header() {
           setIsDialogOpen(false);
         }}
       />
-      <header className="w-full px-4 lg:px-6 h-14 flex items-center">
+      <UserPreferencesDialog
+        DialogProps={{
+          open: isPreferencesDialogOpen,
+          onOpenChange: (open) => {
+            setIsPreferencesDialogOpen(open);
+          },
+        }}
+        onSuccessSubmit={() => {
+          setIsPreferencesDialogOpen(false);
+        }}
+      />
+      <header className="w-full px-4 lg:px-6 h-14 flex items-center bg-secondary">
         <div className="flex w-full justify-between items-center">
-          <span className="text-lg font-bold">My App</span>
+          <span className="text-lg font-bold text-primary">My App</span>
           <div className="flex items-center gap-4">
             <ThemeToggle />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="h-9 w-9 cursor-pointer">
-                  <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
+                <Button variant="outline">{data?.first_name}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={handleLogout}>
@@ -73,6 +85,13 @@ export function Header() {
                   }}
                 >
                   Editar Usuário
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsPreferencesDialogOpen(true);
+                  }}
+                >
+                  Editar Preferências
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

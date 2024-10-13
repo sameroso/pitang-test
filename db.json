@@ -6,7 +6,7 @@
       "last_name": "Doe hector",
       "email": "johndoe@email.com",
       "country": "AD",
-      "password": "password123"
+      "password": "12345678"
     },
     {
       "id": "43a5",
@@ -29,7 +29,15 @@
         "primary_color": "#ffffff",
         "secondary_color": "#000000"
       },
-      "mode": "dark"
+      "mode": "dark",
+      "primary_color": {
+        "dark": "#e5e1e1",
+        "light": "#e7dede"
+      },
+      "secondary_color": {
+        "dark": "#1f1e1e",
+        "light": "#f72b2b"
+      }
     },
     {
       "id": "4232",

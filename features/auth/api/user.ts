@@ -9,6 +9,9 @@ export const userApi = createApi({
   baseQuery: async () => {
     try {
       const res = getCookies(document.cookie);
+      if (!res?.user) {
+        return { data: {} };
+      }
       return { data: res.user };
     } catch (e: unknown) {
       return { error: e };
@@ -19,6 +22,18 @@ export const userApi = createApi({
       queryFn: async () => {
         try {
           const res = getCookies(document.cookie);
+          if (!res?.user) {
+            return {
+              data: {
+                country: "",
+                email: "",
+                first_name: "",
+                id: "",
+                last_name: "",
+                password: "",
+              },
+            };
+          }
           return { data: res.user };
         } catch (e: unknown) {
           return { error: e };
@@ -53,7 +68,7 @@ export const userApi = createApi({
       invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
 
-    logout: builder.mutation<AuthUserDto, void>({
+    logout: builder.mutation<AuthUserDto,  void>({
       queryFn: async (_, extraOptions: ExtraOptions) => {
         try {
           const res = await extraOptions.extra.authService.logout();
@@ -62,7 +77,6 @@ export const userApi = createApi({
           return { error: e };
         }
       },
-      invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
 
     updateUser: builder.mutation<AuthUserDto, UserDto>({

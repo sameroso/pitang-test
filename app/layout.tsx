@@ -4,6 +4,10 @@ import "./globals.css";
 import StoreProvider from "@/lib/redux/store-provider";
 import { ThemeProvider } from "@/lib/styles/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { cookies } from "next/headers";
+import { hexToCssHsl } from "@/style/utils";
+
+export const dynamic = "force-dynamic";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,20 +30,49 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStorage = cookies();
+
+  const preferences = JSON.parse(
+    cookieStorage.get("preferences")?.value || "{}"
+  );
+
+  const secondaryColorStyle = preferences?.secondary_color?.[preferences?.mode]
+    ? {
+        "--secondary": hexToCssHsl(
+          preferences.secondary_color[preferences.mode],
+          true
+        ),
+      }
+    : {};
+
+  const primaryColorStyle = preferences?.primary_color?.[preferences?.mode]
+    ? {
+        "--primary": hexToCssHsl(
+          preferences.primary_color[preferences.mode],
+          true
+        ),
+      }
+    : {};
+
+  const style = {
+    ...primaryColorStyle,
+    ...secondaryColorStyle,
+  } as React.CSSProperties;
+
   return (
     <StoreProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning style={style}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme={preferences?.mode || "system"}
             enableSystem
             disableTransitionOnChange
           >
             <Toaster />
-            <div className="container mx-auto my-5">{children}</div>
+            {children}
           </ThemeProvider>
         </body>
       </html>

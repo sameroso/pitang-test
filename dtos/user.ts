@@ -12,7 +12,7 @@ export type RequestUserDto = Omit<UserDto, "id">;
 export type AuthUserDto = Omit<UserDto, "password"> & { password: never };
 export type RequestAuthUserDto = Omit<AuthUserDto, "id"> & { password: never };
 
-export interface SettingsDto {
+export interface PreferencesDto {
   id: string;
   user_id: string;
   primary_color: { dark: string; light: string };
@@ -20,5 +20,5 @@ export interface SettingsDto {
   mode: string;
 }
 
-export type CreateSettingsDto = Partial<Omit<SettingsDto, "id" | "user_id">> &
-  Pick<SettingsDto, "user_id">;
+export type CreatePreferencesDto = Partial<Omit<PreferencesDto, "id" | "user_id">> &
+  Pick<PreferencesDto, "user_id">;
