@@ -1,13 +1,10 @@
-import { Header } from "@/components/header";
 import { CurrencyTable } from "@/features/currency/components/currency-table";
+import AppLayout from "@/layouts/app-layout";
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <div className="container mx-auto my-5">
-        <CurrencyTable />
-      </div>
-    </>
+    <AppLayout>
+      <CurrencyTable />
+    </AppLayout>
   );
 }

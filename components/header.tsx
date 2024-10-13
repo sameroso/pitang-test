@@ -66,8 +66,10 @@ export function Header() {
         }}
       />
       <header className="w-full px-4 lg:px-6 h-14 flex items-center bg-secondary">
-        <div className="flex w-full justify-between items-center">
-          <span className="text-lg font-bold text-primary">My App</span>
+        <div className="flex w-full justify-end md:justify-between items-center">
+          <span className="text-lg font-bold text-primary hidden md:block">
+            Verificador de Moedas
+          </span>
           <div className="flex items-center gap-4">
             <ThemeToggle />
 
