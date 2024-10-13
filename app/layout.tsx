@@ -61,13 +61,15 @@ export default function RootLayout({
 
   return (
     <StoreProvider>
-      <html lang="en" suppressHydrationWarning style={style}>
+      <html lang="pt-BR" suppressHydrationWarning style={style}>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased ${
+            preferences?.mode || "light"
+          }`}
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme={preferences?.mode || "system"}
+            defaultTheme={preferences?.mode}
             enableSystem
             disableTransitionOnChange
           >

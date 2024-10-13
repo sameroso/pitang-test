@@ -14,16 +14,17 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import {
-  appendVariableToHtmlStyle,
+  appendVariableToBodyStyle,
   checkHexValidity,
   hexToCssHsl,
   hslToHex,
 } from "@/style/utils";
 import { PropsWithChildren } from "react";
-import { useTheme } from "next-themes";
 import { COLORS } from "@/style/constants";
 import { Redo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ChangeThemeColorInput } from "./change-theme-color-input";
+import { useAppTheme } from "@/hooks/use-app-theme";
 
 const formSchema = z
   .object({
@@ -71,7 +72,7 @@ export function UserPreferencesForm({
   onSubmit,
   children,
 }: PropsWithChildren<UserPreferencesForm>) {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme } = useAppTheme();
 
   const form = useForm<PreferencesFormSchema>({
     resolver: zodResolver(formSchema),
@@ -112,7 +113,7 @@ export function UserPreferencesForm({
                           form.getValues("lightModePrimary") || ""
                         ).isValid
                       ) {
-                        appendVariableToHtmlStyle({
+                        appendVariableToBodyStyle({
                           value: getColorHslVariable("lightModePrimary"),
                           variable: "primary",
                         });
@@ -123,7 +124,7 @@ export function UserPreferencesForm({
                           form.getValues("lightModeSecondary") || ""
                         ).isValid
                       ) {
-                        appendVariableToHtmlStyle({
+                        appendVariableToBodyStyle({
                           value: getColorHslVariable("lightModeSecondary"),
                           variable: "secondary",
                         });
@@ -136,7 +137,7 @@ export function UserPreferencesForm({
                           form.getValues("darkModePrimary") || ""
                         ).isValid
                       ) {
-                        appendVariableToHtmlStyle({
+                        appendVariableToBodyStyle({
                           value: getColorHslVariable("darkModePrimary"),
                           variable: "primary",
                         });
@@ -147,7 +148,7 @@ export function UserPreferencesForm({
                           form.getValues("darkModeSecondary") || ""
                         ).isValid
                       ) {
-                        appendVariableToHtmlStyle({
+                        appendVariableToBodyStyle({
                           value: getColorHslVariable("darkModeSecondary"),
                           variable: "secondary",
                         });
@@ -155,7 +156,7 @@ export function UserPreferencesForm({
                     }
 
                     field.onChange(themeOption);
-                    setTheme(themeOption);
+                    setTheme(themeOption, { noApllySystemVars: true });
                   }}
                   defaultValue={theme}
                   className="flex flex-col space-y-1"
@@ -190,7 +191,7 @@ export function UserPreferencesForm({
                             onChange={(e) => {
                               field.onChange(e);
                               if (theme === "light") {
-                                appendVariableToHtmlStyle({
+                                appendVariableToBodyStyle({
                                   value: hexToCssHsl(e.target.value, true),
                                   variable: "primary",
                                 });
@@ -208,7 +209,7 @@ export function UserPreferencesForm({
                                   theme === "light" &&
                                   checkHexValidity(e.target.value).isValid
                                 ) {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(e.target.value, true),
                                     variable: "primary",
                                   });
@@ -227,7 +228,7 @@ export function UserPreferencesForm({
                                   hslToHex(COLORS.light.primary)
                                 );
                                 if (theme === "light") {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(
                                       hslToHex(COLORS.light.primary),
                                       true
@@ -261,7 +262,7 @@ export function UserPreferencesForm({
                             onChange={(e) => {
                               field.onChange(e);
                               if (theme === "light") {
-                                appendVariableToHtmlStyle({
+                                appendVariableToBodyStyle({
                                   value: hexToCssHsl(e.target.value, true),
                                   variable: "secondary",
                                 });
@@ -277,7 +278,7 @@ export function UserPreferencesForm({
                                   theme === "light" &&
                                   checkHexValidity(e.target.value).isValid
                                 ) {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(e.target.value, true),
                                     variable: "secondary",
                                   });
@@ -296,7 +297,7 @@ export function UserPreferencesForm({
                                   hslToHex(COLORS.light.secondary)
                                 );
                                 if (theme === "light") {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(
                                       hslToHex(COLORS.light.secondary),
                                       true
@@ -331,7 +332,7 @@ export function UserPreferencesForm({
                               field.onChange(e);
 
                               if (theme === "dark") {
-                                appendVariableToHtmlStyle({
+                                appendVariableToBodyStyle({
                                   value: hexToCssHsl(e.target.value, true),
                                   variable: "primary",
                                 });
@@ -347,7 +348,7 @@ export function UserPreferencesForm({
                                   theme === "dark" &&
                                   checkHexValidity(e.target.value).isValid
                                 ) {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(e.target.value, true),
                                     variable: "primary",
                                   });
@@ -366,7 +367,7 @@ export function UserPreferencesForm({
                                   hslToHex(COLORS.dark.primary)
                                 );
                                 if (theme === "dark") {
-                                  appendVariableToHtmlStyle({
+                                  appendVariableToBodyStyle({
                                     value: hexToCssHsl(
                                       hslToHex(COLORS.dark.primary),
                                       true
@@ -392,64 +393,52 @@ export function UserPreferencesForm({
                     <FormItem>
                       <FormLabel>Dark Mode Secondary Color</FormLabel>
                       <FormControl>
-                        <div className="flex items-center space-x-2">
-                          <Input
-                            type="color"
-                            {...field}
-                            className="h-10 w-14 p-1"
-                            onChange={(e) => {
+                        <ChangeThemeColorInput
+                          InputProps={{
+                            ...field,
+                            onChange: (e) => {
                               field.onChange(e);
-                              if (theme === "dark") {
-                                appendVariableToHtmlStyle({
+                              if (
+                                theme === "dark" &&
+                                checkHexValidity(e.target.value).isValid
+                              ) {
+                                appendVariableToBodyStyle({
                                   value: hexToCssHsl(e.target.value, true),
                                   variable: "secondary",
                                 });
                               }
-                            }}
-                          />
-                          <div className="relative">
-                            <Input
-                              {...field}
-                              onChange={(e) => {
-                                field.onChange(e);
-                                if (
-                                  theme === "dark" &&
-                                  checkHexValidity(e.target.value).isValid
-                                ) {
-                                  appendVariableToHtmlStyle({
-                                    value: hexToCssHsl(e.target.value, true),
-                                    variable: "secondary",
-                                  });
-                                }
-                              }}
-                              placeholder="#334155"
-                              className="flex-grow"
-                            />
-                            <Button
-                              type="button"
-                              size="sm"
-                              className="absolute right-1 top-0 h-10"
-                              onClick={() => {
-                                form.setValue(
-                                  "darkModeSecondary",
-                                  hslToHex(COLORS.dark.secondary)
-                                );
-                                if (theme === "dark") {
-                                  appendVariableToHtmlStyle({
-                                    value: hexToCssHsl(
-                                      hslToHex(COLORS.dark.secondary),
-                                      true
-                                    ),
-                                    variable: "secondary",
-                                  });
-                                }
-                              }}
-                            >
-                              <Redo2 className="h-4 w-4" />
-                              <span className="sr-only">Search</span>
-                            </Button>
-                          </div>
-                        </div>
+                            },
+                          }}
+                          ResetButtonProps={{
+                            onClick: () => {
+                              form.setValue(
+                                "darkModeSecondary",
+                                hslToHex(COLORS.dark.secondary)
+                              );
+                              if (theme === "dark") {
+                                appendVariableToBodyStyle({
+                                  value: hexToCssHsl(
+                                    hslToHex(COLORS.dark.secondary),
+                                    true
+                                  ),
+                                  variable: "secondary",
+                                });
+                              }
+                            },
+                          }}
+                          InputColorSelectorProps={{
+                            ...field,
+                            onChange: (e) => {
+                              field.onChange(e);
+                              if (theme === "dark") {
+                                appendVariableToBodyStyle({
+                                  value: hexToCssHsl(e.target.value, true),
+                                  variable: "secondary",
+                                });
+                              }
+                            },
+                          }}
+                        />
                       </FormControl>
                     </FormItem>
                   )}

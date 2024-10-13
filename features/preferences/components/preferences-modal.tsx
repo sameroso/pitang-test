@@ -13,7 +13,6 @@ import {
   useGetPreferencesQuery,
   useUpdatePreferencesMutation,
 } from "../api/preferences";
-import { useTheme } from "next-themes";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 
@@ -27,7 +26,6 @@ export function UserPreferencesDialog({
   onSuccessSubmit,
 }: UserPreferencesDialogProps) {
   const { data } = useGetPreferencesQuery();
-  const { theme } = useTheme();
   const [updatePreferences, updatePreferencesRequestStatus] =
     useUpdatePreferencesMutation();
   const { toast } = useToast();
@@ -68,7 +66,7 @@ export function UserPreferencesDialog({
         </DialogHeader>
         <UserPreferencesForm
           defaultValues={{
-            preferredMode: theme as "dark" | "light",
+            preferredMode: data?.mode as "dark" | "light" | "" | undefined,
             lightModePrimary: data?.primary_color?.light,
             lightModeSecondary: data?.secondary_color?.light,
             darkModePrimary: data?.primary_color?.dark,

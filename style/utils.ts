@@ -77,7 +77,7 @@ const variableMapper: Record<Variables, string> = {
   primary: "--primary",
   secondary: "--secondary",
 };
-export const appendVariableToHtmlStyle = ({
+export const appendVariableToBodyStyle = ({
   variable,
   value,
 }: {
@@ -85,7 +85,7 @@ export const appendVariableToHtmlStyle = ({
   value: string;
 }) => {
   document!
-    .querySelector("html")!
+    .querySelector("body")!
     .attributeStyleMap.set(variableMapper[variable], value);
 };
 
@@ -94,5 +94,5 @@ export const removeVariableFromHtmlStyle = ({
 }: {
   variable: Variables;
 }) => {
-  document!.querySelector("html")!.style.removeProperty(variable);
+  document!.querySelector("body")!.style.removeProperty(variable);
 };
