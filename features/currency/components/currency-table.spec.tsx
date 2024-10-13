@@ -3,16 +3,18 @@ import { CurrencyTable } from "./currency-table";
 import StoreProvider from "@/lib/redux/store-provider";
 import { fixerResponseMock } from "@/testing/mocks/fixer-api-mock";
 import { mapCurrencyToTableValues } from "../convert-base-currency";
-import { StoreMockRequestsError } from "@/testing/store-provider-failed-requests";
+import { StoreProviderRequestSuccess } from "@/testing/store-provider-failed-requests";
 import { act } from "react";
+import { authMockServiceSuccess } from "@/testing/mocks/services-mock.ts/auth-mock-service";
+import { getCurrencyError } from "@/testing/mocks/handlers/currency";
 
 describe("Currency table tests when fetching", () => {
   it("should show loading component when fetching data", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 
@@ -24,23 +26,35 @@ describe("Currency table tests when error", () => {
   it("should render Error component", async () => {
     await act(() =>
       render(
-        <StoreMockRequestsError>
+        <StoreProvider
+          extraArgument={{
+            authService: authMockServiceSuccess,
+            currencyService: { getCurrencies: getCurrencyError },
+          }}
+        >
           <CurrencyTable />
-        </StoreMockRequestsError>
+        </StoreProvider>
       )
     );
 
     await waitFor(() => {
       expect(screen.getByTestId("load-table-error")).toBeInTheDocument();
     });
+
+    screen.debug();
   });
 
   it("should try to load data clicking on error retry button", async () => {
     await act(() =>
       render(
-        <StoreMockRequestsError>
+        <StoreProvider
+          extraArgument={{
+            authService: authMockServiceSuccess,
+            currencyService: { getCurrencies: getCurrencyError },
+          }}
+        >
           <CurrencyTable />
-        </StoreMockRequestsError>
+        </StoreProvider>
       )
     );
 
@@ -62,9 +76,9 @@ describe("Currency table tests when table load with success", () => {
   it("should render 10 items on the screen in the table after loading items succesfully", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
@@ -81,9 +95,9 @@ describe("Currency table tests when table load with success", () => {
   it("should reverse currency order clicking on table column header currency button", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 
@@ -105,9 +119,9 @@ describe("Currency table tests when table load with success", () => {
   it("should sort buttons by rate clicking on column of rate button", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 
@@ -127,9 +141,9 @@ describe("Currency table tests when table load with success", () => {
   it("should go to next page clicking on next button", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 
@@ -151,9 +165,9 @@ describe("Currency table tests when table load with success", () => {
   it("previous button should be initially disabled", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 
@@ -171,9 +185,9 @@ describe("Currency table tests when table load with success", () => {
   it("should go to previous page clicking on previous button", async () => {
     await act(() =>
       render(
-        <StoreProvider>
+        <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProvider>
+        </StoreProviderRequestSuccess>
       )
     );
 

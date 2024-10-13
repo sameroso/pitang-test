@@ -1,21 +1,19 @@
 "use client";
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { Provider } from "react-redux";
-import { makeStore, AppStore } from "./store";
-import { currencyService } from "@/services/currency-service";
-import { authService } from "@/services/auth-service";
+import { makeStore, AppStore, ExtraArgument } from "./store";
 
+export interface StoreProviderProps {
+  extraArgument: ExtraArgument;
+  children: ReactNode;
+}
 export default function StoreProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  extraArgument,
+}: StoreProviderProps) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
-    storeRef.current = makeStore({
-      currencyService,
-      authService: authService,
-    });
+    storeRef.current = makeStore(extraArgument);
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;

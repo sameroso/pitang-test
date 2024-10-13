@@ -11,7 +11,7 @@ export const getCurrencyError = () => {
         status: 404,
         statusText: "",
       });
-    }, 100);
+    }, 50);
   });
 };
 

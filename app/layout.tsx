@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import StoreProvider from "@/lib/redux/store-provider";
 import { ThemeProvider } from "@/lib/styles/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { cookies } from "next/headers";
 import { hexToCssHsl } from "@/style/utils";
+import AppStoreProvider from "@/providers/app-store-provider";
 
 export const dynamic = "force-dynamic";
 
@@ -60,7 +60,7 @@ export default function RootLayout({
   } as React.CSSProperties;
 
   return (
-    <StoreProvider>
+    <AppStoreProvider>
       <html lang="pt-BR" suppressHydrationWarning style={style}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased ${
@@ -78,6 +78,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </StoreProvider>
+    </AppStoreProvider>
   );
 }

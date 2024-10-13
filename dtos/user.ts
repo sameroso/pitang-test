@@ -9,7 +9,7 @@ export interface UserDto {
 
 export type RequestUserDto = Omit<UserDto, "id">;
 
-export type AuthUserDto = Omit<UserDto, "password"> & { password: never };
+export type AuthUserDto = Omit<UserDto, "password"> & { password?: never };
 export type RequestAuthUserDto = Omit<AuthUserDto, "id"> & { password: never };
 
 export interface PreferencesDto {
