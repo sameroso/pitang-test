@@ -158,7 +158,7 @@ export function UserPreferencesForm({
                     field.onChange(themeOption);
                     setTheme(themeOption, { noApllySystemVars: true });
                   }}
-                  defaultValue={theme}
+                  defaultValue={defaultValues?.preferredMode || theme}
                   className="flex flex-col space-y-1"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
