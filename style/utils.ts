@@ -1,10 +1,18 @@
-export function hexToCssHsl(hex: string, valuesOnly = false) {
+export const checkHexValidity = (hex: string) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result || result.length !== 4) throw "Failed to parse hex";
+  return {
+    isValid: !(!result || result.length !== 4) && result?.[0].startsWith("#"),
+    value: result,
+  };
+};
 
-  let r = parseInt(result[1], 16);
-  let g = parseInt(result[2], 16);
-  let b = parseInt(result[3], 16);
+export function hexToCssHsl(hex?: string, valuesOnly = false) {
+  const result = checkHexValidity(hex || "");
+  if (!result.isValid) return "";
+
+  let r = parseInt(result.value![1], 16);
+  let g = parseInt(result.value![2], 16);
+  let b = parseInt(result.value![3], 16);
   let cssString = "";
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   (r /= 255), (g /= 255), (b /= 255);
@@ -42,7 +50,16 @@ export function hexToCssHsl(hex: string, valuesOnly = false) {
   return cssString;
 }
 
-export function hslToHex(h: number, s: number, l: number) {
+export function hslToHex(hsl: string) {
+  const hslValues = hsl
+    .replaceAll("%", "")
+    .split(" ")
+    .map((val) => Number(val));
+
+  const h = hslValues[0];
+  const s = hslValues[1];
+  let l = hslValues[2];
+
   l /= 100;
   const a = (s * Math.min(l, 1 - l)) / 100;
   const f = (n: number) => {
@@ -54,3 +71,28 @@ export function hslToHex(h: number, s: number, l: number) {
   };
   return `#${f(0)}${f(8)}${f(4)}`;
 }
+
+type Variables = "primary" | "secondary";
+const variableMapper: Record<Variables, string> = {
+  primary: "--primary",
+  secondary: "--secondary",
+};
+export const appendVariableToHtmlStyle = ({
+  variable,
+  value,
+}: {
+  variable: Variables;
+  value: string;
+}) => {
+  document!
+    .querySelector("html")!
+    .attributeStyleMap.set(variableMapper[variable], value);
+};
+
+export const removeVariableFromHtmlStyle = ({
+  variable,
+}: {
+  variable: Variables;
+}) => {
+  document!.querySelector("html")!.style.removeProperty(variable);
+};

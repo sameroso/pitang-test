@@ -8,7 +8,7 @@ export const userApi = createApi({
   tagTypes: ["user"],
   baseQuery: async () => {
     try {
-      const res = getCookies(document.cookie);
+      const res = getCookies();
       if (!res?.user) {
         return { data: {} };
       }
@@ -19,25 +19,12 @@ export const userApi = createApi({
   },
   endpoints: (builder) => ({
     getUser: builder.query<AuthUserDto, void>({
-      queryFn: async () => {
-        try {
-          const res = getCookies(document.cookie);
-          if (!res?.user) {
-            return {
-              data: {
-                country: "",
-                email: "",
-                first_name: "",
-                id: "",
-                last_name: "",
-                password: "",
-              },
-            };
-          }
-          return { data: res.user };
-        } catch (e: unknown) {
-          return { error: e };
+      queryFn: () => {
+        const res = getCookies();
+        if (!res?.user) {
+          return { error: { message: "Não foi possível encontrar usuárop" } };
         }
+        return { data: res.user };
       },
       providesTags: () => [{ type: "user", id: "getuser" }],
     }),
@@ -68,7 +55,7 @@ export const userApi = createApi({
       invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
 
-    logout: builder.mutation<AuthUserDto,  void>({
+    logout: builder.mutation<AuthUserDto, void>({
       queryFn: async (_, extraOptions: ExtraOptions) => {
         try {
           const res = await extraOptions.extra.authService.logout();

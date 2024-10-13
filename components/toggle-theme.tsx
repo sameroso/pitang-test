@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAppTheme } from "@/hooks/uae-app-theme";
+import { useAppTheme } from "@/hooks/use-app-theme";
 
 export function ThemeToggle() {
   const { setTheme } = useAppTheme();

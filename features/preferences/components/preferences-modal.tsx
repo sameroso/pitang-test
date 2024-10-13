@@ -64,17 +64,15 @@ export function UserPreferencesDialog({
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Editar Preferências</DialogTitle>
-          <DialogDescription>
-            Mude suas preferencias aqui
-          </DialogDescription>
+          <DialogDescription>Mude suas preferencias aqui</DialogDescription>
         </DialogHeader>
         <UserPreferencesForm
           defaultValues={{
             preferredMode: theme as "dark" | "light",
-            lightModePrimary: data?.primary_color.light || "",
-            lightModeSecondary: data?.secondary_color.light || "",
-            darkModePrimary: data?.primary_color.dark || "",
-            darkModeSecondary: data?.secondary_color.dark || "",
+            lightModePrimary: data?.primary_color?.light,
+            lightModeSecondary: data?.secondary_color?.light,
+            darkModePrimary: data?.primary_color?.dark,
+            darkModeSecondary: data?.secondary_color?.dark,
           }}
           onSubmit={onSubmit}
         >

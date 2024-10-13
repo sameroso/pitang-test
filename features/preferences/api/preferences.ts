@@ -8,7 +8,7 @@ export const preferencesApi = createApi({
   tagTypes: ["preferences"],
   baseQuery: async () => {
     try {
-      const res = getCookies(document.cookie);
+      const res = getCookies();
       return { data: res.preferences };
     } catch (e: unknown) {
       return { error: e };
@@ -18,7 +18,7 @@ export const preferencesApi = createApi({
     getPreferences: builder.query<PreferencesDto, void>({
       queryFn: async () => {
         try {
-          const res = getCookies(document.cookie);
+          const res = getCookies();
 
           return { data: res.preferences };
         } catch (e: unknown) {

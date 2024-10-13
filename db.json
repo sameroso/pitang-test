@@ -21,23 +21,15 @@
     {
       "id": "234",
       "user_id": "123",
-      "dark": {
-        "primary_color": "#ffffff",
-        "secondary_color": "#000000"
-      },
-      "light": {
-        "primary_color": "#ffffff",
-        "secondary_color": "#000000"
-      },
-      "mode": "dark",
       "primary_color": {
-        "dark": "#e5e1e1",
-        "light": "#e7dede"
+        "dark": "#fafaf9",
+        "light": "#1c1917"
       },
       "secondary_color": {
-        "dark": "#4f1111",
-        "light": "#f72b2b"
-      }
+        "dark": "#292524",
+        "light": "#f5f5f4"
+      },
+      "mode": "dark"
     },
     {
       "id": "4232",

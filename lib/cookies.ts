@@ -1,10 +1,20 @@
-export const getCookies = (cookieString: string) => {
-  return cookieString
+import { AuthUserDto, PreferencesDto } from "@/dtos/user";
+
+export interface CookieValues {
+  user?: AuthUserDto;
+  preferences?: PreferencesDto;
+}
+
+export const getCookies = () => {
+  return document.cookie
     .split("; ")
     .reduce((acc: Record<string, unknown>, curr: string) => {
       const [key, value] = curr.split("=");
-      return { ...acc, [key]: JSON.parse(decodeURIComponent(value) || "") };
-    }, {});
+      return {
+        ...acc,
+        [key]: JSON.parse(decodeURIComponent(value || "") || "{}"),
+      };
+    }, {}) as CookieValues;
 };
 
 export const changeTimeFromDaysToMilisecondsFromCurrentDate = (
