@@ -43,7 +43,7 @@ export const userApi = createApi({
 
       invalidatesTags: [{ type: "user", id: "getuser" }],
     }),
-    signUp: builder.mutation<RequestUserDto, RequestUserDto>({
+    signUp: builder.mutation<AuthUserDto, RequestUserDto>({
       queryFn: async (user, extraOptions: ExtraOptions) => {
         try {
           const res = await extraOptions.extra.authService.signUp(user);

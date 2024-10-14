@@ -64,7 +64,7 @@ export type PreferencesFormSchema = z.infer<typeof formSchema>;
 
 interface UserPreferencesForm {
   defaultValues?: PreferencesFormSchema;
-  onSubmit: (values: PreferencesFormSchema) => void;
+  onSubmit: (values: PreferencesFormSchema) => void | Promise<void>;
 }
 
 export function UserPreferencesForm({
