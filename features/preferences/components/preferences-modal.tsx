@@ -50,6 +50,8 @@ export function UserPreferencesDialog({
         variant: "destructive",
         description: res.error.response?.data,
       });
+
+      return;
     }
     toast({
       title: "Valores atualizados com sucesso!",
