@@ -84,15 +84,13 @@ export const appendVariableToBodyStyle = ({
   variable: Variables;
   value: string;
 }) => {
-  document!
+  document
     .querySelector("body")!
-    .attributeStyleMap.set(variableMapper[variable], value);
+    .style.setProperty(variableMapper[variable], value);
 };
 
-export const removeVariableFromHtmlStyle = ({
-  variable,
-}: {
-  variable: Variables;
-}) => {
-  document!.querySelector("body")!.style.removeProperty(variable);
+export const removeVariableFromBodyStyle = ({ variable }: { variable: Variables }) => {
+  document
+    .querySelector("body")!
+    .style.removeProperty(variableMapper[variable]);
 };

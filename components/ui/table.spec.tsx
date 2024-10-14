@@ -27,7 +27,11 @@ describe("Table Components", () => {
 
   describe("TableHeader", () => {
     it("renders correctly", () => {
-      render(<TableHeader data-testid="table-header" />);
+      render(
+        <Table>
+          <TableHeader data-testid="table-header" />
+        </Table>
+      );
       const header = screen.getByTestId("table-header");
       expect(header).toBeInTheDocument();
       expect(header).toHaveClass("[&_tr]:border-b");
@@ -35,7 +39,9 @@ describe("Table Components", () => {
 
     it("applies custom className", () => {
       render(
-        <TableHeader data-testid="table-header" className="custom-class" />
+        <Table>
+          <TableHeader data-testid="table-header" className="custom-class" />
+        </Table>
       );
       expect(screen.getByTestId("table-header")).toHaveClass("custom-class");
     });
@@ -43,21 +49,33 @@ describe("Table Components", () => {
 
   describe("TableBody", () => {
     it("renders correctly", () => {
-      render(<TableBody data-testid="table-body" />);
+      render(
+        <Table>
+          <TableBody data-testid="table-body" />
+        </Table>
+      );
       const body = screen.getByTestId("table-body");
       expect(body).toBeInTheDocument();
       expect(body).toHaveClass("[&_tr:last-child]:border-0");
     });
 
     it("applies custom className", () => {
-      render(<TableBody data-testid="table-body" className="custom-class" />);
+      render(
+        <Table>
+          <TableBody data-testid="table-body" className="custom-class" />
+        </Table>
+      );
       expect(screen.getByTestId("table-body")).toHaveClass("custom-class");
     });
   });
 
   describe("TableFooter", () => {
     it("renders correctly", () => {
-      render(<TableFooter data-testid="table-footer" />);
+      render(
+        <Table>
+          <TableFooter data-testid="table-footer" />
+        </Table>
+      );
       const footer = screen.getByTestId("table-footer");
       expect(footer).toBeInTheDocument();
       expect(footer).toHaveClass(
@@ -67,7 +85,9 @@ describe("Table Components", () => {
 
     it("applies custom className", () => {
       render(
-        <TableFooter data-testid="table-footer" className="custom-class" />
+        <Table>
+          <TableFooter data-testid="table-footer" className="custom-class" />
+        </Table>
       );
       expect(screen.getByTestId("table-footer")).toHaveClass("custom-class");
     });
@@ -75,7 +95,13 @@ describe("Table Components", () => {
 
   describe("TableRow", () => {
     it("renders correctly", () => {
-      render(<TableRow data-testid="table-row" />);
+      render(
+        <Table>
+          <TableBody>
+            <TableRow data-testid="table-row" />
+          </TableBody>
+        </Table>
+      );
       const row = screen.getByTestId("table-row");
       expect(row).toBeInTheDocument();
       expect(row).toHaveClass(
@@ -84,14 +110,28 @@ describe("Table Components", () => {
     });
 
     it("applies custom className", () => {
-      render(<TableRow data-testid="table-row" className="custom-class" />);
+      render(
+        <Table>
+          <TableBody>
+            <TableRow data-testid="table-row" className="custom-class" />
+          </TableBody>
+        </Table>
+      );
       expect(screen.getByTestId("table-row")).toHaveClass("custom-class");
     });
   });
 
   describe("TableHead", () => {
     it("renders correctly", () => {
-      render(<TableHead data-testid="table-head" />);
+      render(
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead data-testid="table-head" />
+            </TableRow>
+          </TableHeader>
+        </Table>
+      );
       const head = screen.getByTestId("table-head");
       expect(head).toBeInTheDocument();
       expect(head).toHaveClass(
@@ -100,14 +140,30 @@ describe("Table Components", () => {
     });
 
     it("applies custom className", () => {
-      render(<TableHead data-testid="table-head" className="custom-class" />);
+      render(
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead data-testid="table-head" className="custom-class" />
+            </TableRow>
+          </TableHeader>
+        </Table>
+      );
       expect(screen.getByTestId("table-head")).toHaveClass("custom-class");
     });
   });
 
   describe("TableCell", () => {
     it("renders correctly", () => {
-      render(<TableCell data-testid="table-cell" />);
+      render(
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell data-testid="table-cell" />
+            </TableRow>
+          </TableBody>
+        </Table>
+      );
       const cell = screen.getByTestId("table-cell");
       expect(cell).toBeInTheDocument();
       expect(cell).toHaveClass(
@@ -116,14 +172,26 @@ describe("Table Components", () => {
     });
 
     it("applies custom className", () => {
-      render(<TableCell data-testid="table-cell" className="custom-class" />);
+      render(
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell data-testid="table-cell" className="custom-class" />
+            </TableRow>
+          </TableBody>
+        </Table>
+      );
       expect(screen.getByTestId("table-cell")).toHaveClass("custom-class");
     });
   });
 
   describe("TableCaption", () => {
     it("renders correctly", () => {
-      render(<TableCaption data-testid="table-caption" />);
+      render(
+        <Table>
+          <TableCaption data-testid="table-caption" />
+        </Table>
+      );
       const caption = screen.getByTestId("table-caption");
       expect(caption).toBeInTheDocument();
       expect(caption).toHaveClass("mt-4 text-sm text-muted-foreground");
@@ -131,7 +199,9 @@ describe("Table Components", () => {
 
     it("applies custom className", () => {
       render(
-        <TableCaption data-testid="table-caption" className="custom-class" />
+        <Table>
+          <TableCaption data-testid="table-caption" className="custom-class" />
+        </Table>
       );
       expect(screen.getByTestId("table-caption")).toHaveClass("custom-class");
     });

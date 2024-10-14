@@ -40,8 +40,6 @@ describe("Currency table tests when error", () => {
     await waitFor(() => {
       expect(screen.getByTestId("load-table-error")).toBeInTheDocument();
     });
-
-    screen.debug();
   });
 
   it("should try to load data clicking on error retry button", async () => {

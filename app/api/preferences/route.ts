@@ -23,8 +23,6 @@ export async function PATCH(request: Request) {
     const body: Partial<PreferencesDto> = await request.json();
     const { id, ...rest } = body;
 
-    console.log(id, rest);
-
     const preferences = await userPreferencesService.update(
       id || "",
       removeFalsyElement(rest)
@@ -35,8 +33,7 @@ export async function PATCH(request: Request) {
     });
 
     return Response.json(preferences.data);
-  } catch (e) {
-    console.log(e);
+  } catch {
     return new Response("Ocorreu um erro, por favor tente novamente", {
       status: 400,
     });

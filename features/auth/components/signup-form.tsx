@@ -34,12 +34,18 @@ export const SignupForm = ({
     setValue,
     getValues,
   } = useForm<UserFormValues>({
-    defaultValues: { country: undefined, ...defaultValues },
+    defaultValues: { country: "", ...defaultValues },
     resolver: zodResolver(schema),
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form
+      role="form"
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+      })}
+      className="space-y-4"
+    >
       <div className="space-y-2">
         <Label htmlFor="firstName">First Name</Label>
         <Input id="firstName" {...register("firstName")} />
@@ -60,13 +66,13 @@ export const SignupForm = ({
           defaultValue={getValues("country")}
           onValueChange={(value) => setValue("country", value)}
         >
-          <SelectTrigger>
+          <SelectTrigger id="country">
             <SelectValue placeholder="Selecione um país" />
           </SelectTrigger>
           <SelectContent>
             {countriesptBr.map((val) => {
               return (
-                <SelectItem value={val.iso} key={val.iso}>
+                <SelectItem data-testid={val.iso} value={val.iso} key={val.iso}>
                   {val.name}
                 </SelectItem>
               );
@@ -86,7 +92,11 @@ export const SignupForm = ({
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Senha</Label>
-        <Input id="text" placeholder="password1234" {...register("password")} />
+        <Input
+          id="password"
+          placeholder="password1234"
+          {...register("password")}
+        />
         {errors.password && (
           <p className="text-sm text-destructive">{errors.password.message}</p>
         )}

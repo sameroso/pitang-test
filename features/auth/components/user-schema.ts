@@ -7,9 +7,7 @@ export const createUserSchema = z.object({
   lastName: z
     .string()
     .min(2, { message: "Sobrenome deve ter pelo menos 2 caracteres" }),
-  country: z
-    .string({ required_error: "Selecione um país" })
-    .min(1, { message: "Selecione um país" }),
+  country: z.string().min(1, { message: "É necesário selecionar um país" }),
   email: z.string().email({ message: "Email inválido" }),
   password: z
     .string()
@@ -31,7 +29,7 @@ export const edituserSchema = z.object({
     .string({ required_error: "Selecione um país" })
     .min(1, { message: "Selecione um país" })
     .or(z.literal("")),
-  email: z.string().email({ message: "Email inválido" }),
+  email: z.string().email({ message: "Email inválido" }).or(z.literal("")),
   password: z
     .string()
     .min(8, { message: "Senha precisa conter no mínimo 8 caracteres" })
