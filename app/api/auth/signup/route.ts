@@ -1,15 +1,12 @@
-import { dbApi } from "@/http/db-api";
 import { changeTimeFromDaysToMilisecondsFromCurrentDate } from "@/lib/cookies";
 import { userPreferencesService } from "@/services/user-preferences-service";
-import { UserService } from "@/services/user-service";
+import { userService } from "@/services/user-service";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   const cookieStorage = cookies();
   try {
     const body = await request.json();
-
-    const userService = UserService.create(dbApi);
 
     const user = await userService.getUserByEmail(body.email);
 

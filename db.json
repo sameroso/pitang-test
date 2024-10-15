@@ -15,6 +15,22 @@
       "first_name": "Samer",
       "last_name": "Kayali Koubeissi Rola",
       "password": "11111111"
+    },
+    {
+      "id": "c4e7",
+      "country": "BR",
+      "email": "sasssmerkkr@gmail.com",
+      "first_name": "Samer121332123",
+      "last_name": "Kayali Koubeissi Rola",
+      "password": "1212312331223"
+    },
+    {
+      "id": "04e7",
+      "country": "BR",
+      "email": "testestes@gmail.com",
+      "first_name": "Samer",
+      "last_name": "Kayali Koubeissi Rola",
+      "password": "123123123123213"
     }
   ],
   "preferences": [
@@ -42,6 +58,14 @@
     {
       "id": "3ca9",
       "user_id": "43a5"
+    },
+    {
+      "id": "092d",
+      "user_id": "c4e7"
+    },
+    {
+      "id": "d569",
+      "user_id": "04e7"
     }
   ]
 }

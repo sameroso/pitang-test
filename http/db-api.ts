@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const dbApi = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: process.env.DB_API,
 });
