@@ -55,7 +55,7 @@ export const LoginForm = ({
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password">Senha</Label>
         <PasswordInput {...register("password")} />
         {errors.password && (
           <p className="text-sm text-destructive">{errors.password.message}</p>

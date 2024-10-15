@@ -39,7 +39,11 @@ const config: Config = {
     "!next-env.d.ts",
     "!tailwind.config.ts",
     "!**/coverage/**",
-    "!**/types.{js,jsx,ts,tsx}"
+    "!**/types.{js,jsx,ts,tsx}",
+    "!**/route.{js,jsx,ts,tsx}",
+    "!**/layout.{js,jsx,ts,tsx}",
+    "!**/testing/**",
+
   ],
 
   // The directory where Jest should output its coverage files

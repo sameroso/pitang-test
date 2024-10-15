@@ -1,5 +1,5 @@
 import { IAuthService } from "@/services/auth-service";
-import { InternalAxiosRequestConfig } from "axios";
+import { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 export const authMockServiceSuccess: IAuthService = {
   logout: () => {
@@ -30,8 +30,8 @@ export const authMockServiceSuccess: IAuthService = {
           headers: {},
           data: {
             country: "",
-            email: "",
-            first_name: "",
+            email: "jhon@email.com",
+            first_name: "john",
             id: "",
             last_name: "",
           },
@@ -97,6 +97,47 @@ export const authMockServiceSuccess: IAuthService = {
           status: 200,
           statusText: "ok",
         });
+      }, 100);
+    });
+  },
+};
+
+export const authMockServiceError: IAuthService = {
+  logout: () => {
+    return new Promise((res, rej) => {
+      return setTimeout(() => {
+        return rej(new AxiosError());
+      }, 100);
+    });
+  },
+
+  signIn: () => {
+    return new Promise((res, rej) => {
+      return setTimeout(() => {
+        return rej(new AxiosError());
+      }, 100);
+    });
+  },
+  signUp: () => {
+    return new Promise((res, rej) => {
+      return setTimeout(() => {
+        return rej(new AxiosError());
+      }, 100);
+    });
+  },
+
+  updateUser: () => {
+    return new Promise((res, rej) => {
+      return setTimeout(() => {
+        return rej(new AxiosError());
+      }, 100);
+    });
+  },
+
+  updateUserPreferences: () => {
+    return new Promise((res, rej) => {
+      return setTimeout(() => {
+        return rej(new AxiosError());
       }, 100);
     });
   },

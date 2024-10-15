@@ -14,7 +14,7 @@ describe("LoginForm", () => {
     render(<LoginForm onSubmit={mockOnSubmit} />);
 
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    expect(screen.getByLabelText("Senha")).toBeInTheDocument();
   });
 
   it("displays error messages for invalid inputs", async () => {
@@ -49,7 +49,7 @@ describe("LoginForm", () => {
     fireEvent.input(screen.getByLabelText("Email"), {
       target: { value: "test@example.com" },
     });
-    fireEvent.input(screen.getByLabelText("Password"), {
+    fireEvent.input(screen.getByLabelText("Senha"), {
       target: { value: "password123" },
     });
 
@@ -80,7 +80,6 @@ describe("LoginForm", () => {
       "autocomplete",
       "username"
     );
-    // Note: PasswordInput component is mocked, so we can't check its autocomplete attribute here
   });
 
   it("uses placeholder for email input", () => {
