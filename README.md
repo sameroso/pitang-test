@@ -284,6 +284,6 @@ Como estratégia de estilização foi utilizado <b>Tailwind</b> por ser uma solu
 
 Para a autenticação e preferências do usuário, optei por utilizar <b>cookies</b>, pois eles armazenam apenas um conjunto pequeno e leve de dados. Essa abordagem permite que as informações sejam facilmente acessadas tanto pelo lado do cliente quanto pelo lado do servidor, garantindo eficiência e agilidade no gerenciamento da sessão do usuário
 
-### Banco de Dados
+## Banco de Dados
 
 Como banco de dados foi utilizado o <b>json-server</b> para finalidade de teste sendo os dados tratados pelo route handlers do do <b>NextJs</b> atuando como um <b>BFF</b> entre o banco e o frontend. 
