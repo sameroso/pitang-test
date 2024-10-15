@@ -1,18 +1,5 @@
-<!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). -->
 
 # 👛 Conversor de moedas
-
-<!-- Este teste foi desenvolvido para e empresa Pitang:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-``` -->
 
 ## Introdução
 
@@ -20,7 +7,7 @@ Este teste foi desenvolvido para a empresa Pitang e consiste em um conversor de 
 
 ### Instruções para Execução do Projeto
 
-1. **Clone o repositório:**
+1. **Clonar o repositório:**
 
 ```bash
 git clone <https://github.com/sameroso/pitang-test.git>
@@ -40,25 +27,6 @@ npm run dev:db
 ```
 
 5. **Executar os testes:**:
-```bash
-npm test
-```
-
-### Instruções para Execução dos testes
-
-1. **Clone o repositório:**
-
-```bash
-git clone <https://github.com/sameroso/pitang-test.git>
-cd pitang-test
-```
-
-2. **Instalar dependências:**:
-
-```bash
-npm install
-```
-3. **Executar os testes:**:
 ```bash
 npm test
 ```
@@ -84,7 +52,7 @@ Foram desenvolvidos para o projeto propost o seguinte funcionalidades:
 
 # ⚙️ Padrões do Projeto
 
-Impor padrões de projeto é crucial para manter a qualidade, consistência e escalabilidade do código em uma aplicação React. Ao estabelecer e seguir um conjunto de boas práticas, os desenvolvedores podem garantir que a base de código permaneça limpa, organizada e de fácil manutenção.
+Impor padrões de projeto é crucial para manter a qualidade, consistência e escalabilidade do código em uma aplicação React. Ao estabelecer e seguir um conjunto de boas práticas, os desenvolvedores podem garantir que a base de código permaneça limpa, organizada e de fácil manutenção. Foram utilizadas as seguintes ferramentas para os padrões do projeto:
 #### ESLint
 
 ESLint é uma ferramenta valiosa de linting para JavaScript, ajudando desenvolvedores a manter a qualidade do código e a aderir aos padrões de codificação. Configurando regras no arquivo .`.eslintrc.json`, o ESLint ajuda a identificar e prevenir erros comuns, garantindo a correção do código e promovendo a consistência em toda a base de código. Essa abordagem não só ajuda a detectar erros precocemente, como também impõe uniformidade nas práticas de codificação, melhorando assim a qualidade geral e a legibilidade do código.
@@ -132,7 +100,7 @@ Muitos sistemas de arquivos, incluindo aqueles em ambientes Unix-like, lidam bem
 
 # 🗄️ Estrutura do Projeto
 
-Para facilitar a escalabilidade e a manutenção, organize a maior parte do código dentro da pasta de recursos (features). Cada pasta de recurso deve conter código específico para aquela funcionalidade, mantendo as coisas bem separadas. Essa abordagem ajuda a evitar a mistura de código relacionado a funcionalidades com componentes compartilhados, tornando mais simples gerenciar e manter a base de código em comparação a ter muitos arquivos em uma estrutura de pasta plana. Ao adotar esse método, você pode melhorar a colaboração, a legibilidade e a escalabilidade na arquitetura da aplicação.
+Para facilitar a escalabilidade e a manutenção o projeto foi organizado embasado fortemente na estrutura de features. Cada pasta de recurso deve conter código específico para aquela funcionalidade, mantendo as coisas bem separadas. Essa abordagem ajuda a evitar a mistura de código relacionado a funcionalidades com componentes compartilhados, tornando mais simples gerenciar e manter a base de código em comparação a ter muitos arquivos em uma estrutura de pasta plana. Ao adotar esse método, você pode melhorar a colaboração, a legibilidade e a escalabilidade na arquitetura da aplicação.
 
 a aplicação tem a seguinte estrutura:
 
