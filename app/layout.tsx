@@ -61,8 +61,9 @@ export default function RootLayout({
 
   return (
     <AppStoreProvider>
-      <html lang="pt-BR" suppressHydrationWarning style={style}>
+      <html lang="pt-BR" suppressHydrationWarning>
         <body
+          style={style}
           className={`${geistSans.variable} ${geistMono.variable} antialiased ${
             preferences?.mode || "light"
           }`}

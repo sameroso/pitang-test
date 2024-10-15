@@ -10,10 +10,12 @@ import { ThemeToggle } from "../toggle-theme";
 import { useGetUserQuery } from "@/features/auth/api/user";
 import { EditUserDialog } from "@/features/auth/components/edit-user-form";
 import { useState } from "react";
-import { UserPreferencesDialog } from "@/features/preferences/components/preferences-modal";
 import { Button } from "../ui/button";
 import { useGetPreferencesQuery } from "@/features/preferences/api/preferences";
 import { useLogout, useSubmitPreferences } from "./hooks";
+import { SimpleDialog } from "../simple-dialog";
+import { UserPreferencesForm } from "@/features/preferences/components/preferences-form";
+import { DialogFooter } from "../ui/dialog";
 
 export function Header() {
   const { handleLogout } = useLogout();
@@ -28,6 +30,48 @@ export function Header() {
 
   const { data: preferencesData } = useGetPreferencesQuery();
 
+  const PreferencesDialog = (
+    <SimpleDialog
+      DialogProps={{
+        open: isPreferencesDialogOpen,
+        onOpenChange: (open) => {
+          setIsPreferencesDialogOpen(open);
+        },
+      }}
+      title="Editar Preferências"
+      description="Mude suas preferencias aqui"
+    >
+      <UserPreferencesForm
+        defaultValues={{
+          preferredMode: preferencesData?.mode as
+            | "dark"
+            | "light"
+            | ""
+            | undefined,
+          lightModePrimary: preferencesData?.primary_color?.light,
+          lightModeSecondary: preferencesData?.secondary_color?.light,
+          darkModePrimary: preferencesData?.primary_color?.dark,
+          darkModeSecondary: preferencesData?.secondary_color?.dark,
+        }}
+        onSubmit={(values) => {
+          onSubmitPreferences({
+            userId: preferencesData?.id || "",
+            values,
+            onSuccessSubmit() {
+              setIsPreferencesDialogOpen(false);
+            },
+          });
+        }}
+      >
+        <DialogFooter>
+          <Button type="submit">
+            {updatePreferencesRequestInfo.isLoading ? "Salvando" : "Salvar"}
+          </Button>
+        </DialogFooter>
+      </UserPreferencesForm>
+    </SimpleDialog>
+  );
+
   return (
     <>
       <EditUserDialog
@@ -41,32 +85,7 @@ export function Header() {
           setIsDialogOpen(false);
         }}
       />
-      <UserPreferencesDialog
-        DialogProps={{
-          open: isPreferencesDialogOpen,
-          onOpenChange: (open) => {
-            setIsPreferencesDialogOpen(open);
-          },
-        }}
-        preferences={{
-          preferredMode: preferencesData?.mode as
-            | "dark"
-            | "light"
-            | ""
-            | undefined,
-          lightModePrimary: preferencesData?.primary_color?.light,
-          lightModeSecondary: preferencesData?.secondary_color?.light,
-          darkModePrimary: preferencesData?.primary_color?.dark,
-          darkModeSecondary: preferencesData?.secondary_color?.dark,
-        }}
-        onSubmit={(values) => {
-          onSubmitPreferences({ userId: userData?.id || "", values });
-        }}
-      >
-        <Button type="submit">
-          {updatePreferencesRequestInfo.isLoading ? "Salvando" : "Salvar"}
-        </Button>
-      </UserPreferencesDialog>
+      {PreferencesDialog}
       <header className="w-full px-4 lg:px-6 h-14 flex items-center bg-secondary">
         <div className="flex w-full justify-end md:justify-between items-center">
           <span className="text-lg font-bold text-primary hidden md:block">

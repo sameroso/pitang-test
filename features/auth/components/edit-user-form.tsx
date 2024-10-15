@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { SignupForm } from "./signup-form";
+import { UserForm } from "./user-form";
 import { useGetUserQuery, useUpdateUserMutation } from "../api/user";
 import { ComponentProps } from "react";
 import { edituserSchema } from "./user-schema";
@@ -36,7 +36,7 @@ export function EditUserDialog({
             Faça mudanças no seu perfil aqui.
           </DialogDescription>
         </DialogHeader>
-        <SignupForm
+        <UserForm
           schema={edituserSchema}
           onSubmit={async (values) => {
             const user = await updateUser({
@@ -79,7 +79,7 @@ export function EditUserDialog({
                 : "Salvando alterações"}
             </Button>
           </DialogFooter>
-        </SignupForm>
+        </UserForm>
       </DialogContent>
     </Dialog>
   );

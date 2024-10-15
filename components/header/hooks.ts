@@ -1,6 +1,6 @@
 import { useLogoutMutation } from "@/features/auth/api/user";
 import { useUpdatePreferencesMutation } from "@/features/preferences/api/preferences";
-import { PreferencesFormSchema } from "@/features/preferences/components/preferences-modal";
+import { PreferencesFormSchema } from "@/features/preferences/components/preferences-form";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { useCallback } from "react";
 
 interface SubmitPreferencesArgs {
   userId: string;
+  onSuccessSubmit?: () => void;
   values?: PreferencesFormSchema;
 }
 export const useSubmitPreferences = () => {
@@ -43,6 +44,7 @@ export const useSubmitPreferences = () => {
       toast({
         title: "Preferencias atualizadas com sucesso!",
       });
+      args?.onSuccessSubmit?.();
     },
     [toast, updatePreferences]
   );

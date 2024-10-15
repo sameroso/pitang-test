@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { SignupForm, SignupFormProps } from "./signup-form";
+import { UserForm, UserFormProps } from "./user-form";
 import {
   createUserSchema,
   edituserSchema,
@@ -7,13 +7,13 @@ import {
 } from "./user-schema";
 
 describe("SignupForm", () => {
-  const defaultProps: SignupFormProps = {
+  const defaultProps: UserFormProps = {
     onSubmit: jest.fn(),
     schema: createUserSchema,
   };
 
   it("renders the form fields", () => {
-    render(<SignupForm {...defaultProps} />);
+    render(<UserForm {...defaultProps} />);
 
     expect(screen.getByLabelText("First Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Last Name")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("SignupForm", () => {
   describe("with createUserSchema", () => {
     it("submits the form with valid data", async () => {
       const onSubmit = jest.fn();
-      render(<SignupForm {...defaultProps} onSubmit={onSubmit} />);
+      render(<UserForm {...defaultProps} onSubmit={onSubmit} />);
 
       fireEvent.change(screen.getByLabelText("First Name"), {
         target: { value: "John" },
@@ -57,7 +57,7 @@ describe("SignupForm", () => {
     });
 
     it("displays error messages for invalid data", async () => {
-      render(<SignupForm {...defaultProps} />);
+      render(<UserForm {...defaultProps} />);
 
       fireEvent.submit(screen.getByRole("form"));
 
@@ -78,7 +78,7 @@ describe("SignupForm", () => {
   });
 
   describe("with edituserSchema", () => {
-    const editProps: SignupFormProps = {
+    const editProps: UserFormProps = {
       ...defaultProps,
       schema: edituserSchema,
     };
@@ -86,9 +86,9 @@ describe("SignupForm", () => {
     it("submits the form with valid data", async () => {
       const onSubmit = jest.fn();
       render(
-        <SignupForm {...editProps} onSubmit={onSubmit}>
+        <UserForm {...editProps} onSubmit={onSubmit}>
           <button type="submit"></button>
-        </SignupForm>
+        </UserForm>
       );
 
       fireEvent.change(screen.getByLabelText("First Name"), {
@@ -124,7 +124,7 @@ describe("SignupForm", () => {
 
     it("allows empty fields", async () => {
       const onSubmit = jest.fn();
-      render(<SignupForm {...editProps} onSubmit={onSubmit} />);
+      render(<UserForm {...editProps} onSubmit={onSubmit} />);
 
       fireEvent.submit(screen.getByRole("form"));
 
@@ -140,7 +140,7 @@ describe("SignupForm", () => {
     });
 
     it("displays error message for invalid email", async () => {
-      render(<SignupForm {...editProps} />);
+      render(<UserForm {...editProps} />);
 
       fireEvent.change(screen.getByLabelText("Email"), {
         target: { value: "invalid-email" },
@@ -162,7 +162,7 @@ describe("SignupForm", () => {
       password: "password456",
     };
 
-    render(<SignupForm {...defaultProps} defaultValues={defaultValues} />);
+    render(<UserForm {...defaultProps} defaultValues={defaultValues} />);
 
     expect(screen.getByLabelText("First Name")).toHaveValue("Jane");
     expect(screen.getByLabelText("Last Name")).toHaveValue("Doe");
@@ -172,9 +172,9 @@ describe("SignupForm", () => {
 
   it("renders children when provided", () => {
     render(
-      <SignupForm {...defaultProps}>
+      <UserForm {...defaultProps}>
         <button type="submit">Custom Submit</button>
-      </SignupForm>
+      </UserForm>
     );
 
     expect(screen.getByText("Custom Submit")).toBeInTheDocument();

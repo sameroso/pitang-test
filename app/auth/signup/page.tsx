@@ -7,7 +7,7 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/toggle-theme";
 import axios from "axios";
-import { SignupForm } from "@/features/auth/components/signup-form";
+import { UserForm } from "@/features/auth/components/user-form";
 import { useSignUpMutation } from "@/features/auth/api/user";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import Link from "next/link";
@@ -53,7 +53,7 @@ export default function RegisterTemplate() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <AuthCard title="Registrar" description="Crie sua conta para começar">
         <CardContent>
-          <SignupForm onSubmit={onSubmit} schema={createUserSchema}>
+          <UserForm onSubmit={onSubmit} schema={createUserSchema}>
             <Button
               type="submit"
               className="w-full"
@@ -61,7 +61,7 @@ export default function RegisterTemplate() {
             >
               {signupData.isLoading ? "Registering..." : "Register"}
             </Button>
-          </SignupForm>
+          </UserForm>
         </CardContent>
         <CardFooter className="flex justify-between">
           <ThemeToggle />

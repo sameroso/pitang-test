@@ -17,15 +17,22 @@ export const ChangeThemeColorInput = ({
     <div className="flex items-center space-x-2">
       <Input
         type="color"
+        data-testid="input-color"
         className="h-10 w-14 p-1"
         {...InputColorSelectorProps}
       />
       <div className="relative">
-        <Input {...InputProps} placeholder="#334155" className="flex-grow" />
+        <Input
+          data-testid="input-text"
+          placeholder="#334155"
+          className="flex-grow"
+          {...InputProps}
+        />
         <Button
           type="button"
           size="sm"
           className="absolute right-1 top-0 h-10"
+          data-testid="reset-color-button"
           {...ResetButtonProps}
         >
           <Redo2 className="h-4 w-4" />

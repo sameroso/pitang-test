@@ -14,19 +14,19 @@ import { PropsWithChildren } from "react";
 import { countriesptBr } from "@/lib/country";
 import { UserFormValues, UserSchema } from "./user-schema";
 
-export interface SignupFormProps {
+export interface UserFormProps {
   defaultValues?: UserFormValues;
   onSubmit: (values: UserFormValues) => void;
   mode?: "partial" | "required";
   schema: UserSchema;
 }
 
-export const SignupForm = ({
+export const UserForm = ({
   onSubmit,
   children,
   defaultValues,
   schema,
-}: PropsWithChildren<SignupFormProps>) => {
+}: PropsWithChildren<UserFormProps>) => {
   const {
     register,
     handleSubmit,
