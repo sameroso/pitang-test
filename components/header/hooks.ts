@@ -1,4 +1,8 @@
-import { useLogoutMutation } from "@/features/auth/api/user";
+import {
+  useLogoutMutation,
+  useUpdateUserMutation,
+} from "@/features/auth/api/user";
+import { EditUserFormSchema } from "@/features/auth/components/user-schema";
 import { useUpdatePreferencesMutation } from "@/features/preferences/api/preferences";
 import { PreferencesFormSchema } from "@/features/preferences/components/preferences-form";
 import { useToast } from "@/hooks/use-toast";
@@ -72,4 +76,47 @@ export const useLogout = () => {
   }, [logout, push, toast]);
 
   return { handleLogout };
+};
+
+interface SubmitUserArgs {
+  userId: string;
+  onSuccessSubmit?: () => void;
+  values?: EditUserFormSchema;
+}
+export const useSubmitUser = () => {
+  const [updateUser, updateUserRequestInfo] = useUpdateUserMutation();
+
+  const { toast } = useToast();
+
+  const onSubmitUser = useCallback(
+    async (args: SubmitUserArgs) => {
+      const user = await updateUser({
+        country: args?.values?.country || "",
+        email: args?.values?.email || "",
+        first_name: args?.values?.firstName || "",
+        last_name: args?.values?.lastName || "",
+        id: args?.userId,
+        password: args?.values?.password || "",
+      });
+
+      if (axios.isAxiosError(user.error)) {
+        toast({
+          title: "Ocorreu algum problema",
+          description: user.error.response?.data,
+          variant: "destructive",
+        });
+
+        return;
+      }
+
+      toast({
+        title: "Dados atualizados com sucesso!",
+      });
+
+      args?.onSuccessSubmit?.();
+    },
+    [toast, updateUser]
+  );
+
+  return { onSubmitUser, updateUserRequestInfo };
 };

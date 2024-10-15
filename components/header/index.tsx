@@ -7,21 +7,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "../toggle-theme";
-import {
-  useGetUserQuery,
-  useUpdateUserMutation,
-} from "@/features/auth/api/user";
+import { useGetUserQuery } from "@/features/auth/api/user";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useGetPreferencesQuery } from "@/features/preferences/api/preferences";
-import { useLogout, useSubmitPreferences } from "./hooks";
+import { useLogout, useSubmitPreferences, useSubmitUser } from "./hooks";
 import { SimpleDialog } from "../simple-dialog";
 import { UserPreferencesForm } from "@/features/preferences/components/preferences-form";
 import { DialogFooter } from "../ui/dialog";
 import { UserForm } from "@/features/auth/components/user-form";
 import { edituserSchema } from "@/features/auth/components/user-schema";
-import axios from "axios";
-import { useToast } from "@/hooks/use-toast";
 
 export function Header() {
   const { handleLogout } = useLogout();
@@ -36,9 +31,7 @@ export function Header() {
 
   const { data: preferencesData } = useGetPreferencesQuery();
 
-  const [updateUser, updateUserRequest] = useUpdateUserMutation();
-
-  const { toast } = useToast();
+  const { onSubmitUser, updateUserRequestInfo } = useSubmitUser();
 
   const PreferencesDialog = (
     <SimpleDialog
@@ -95,32 +88,15 @@ export function Header() {
     >
       <UserForm
         schema={edituserSchema}
-        onSubmit={async (values) => {
-          const user = await updateUser({
-            country: values.country,
-            email: values.email,
-            first_name: values.firstName,
-            last_name: values.lastName,
-            id: userData?.id || "",
-            password: values.password,
-          });
-
-          if (axios.isAxiosError(user.error)) {
-            toast({
-              title: "Ocorreu algum problema",
-              description: user.error.response?.data,
-              variant: "destructive",
-            });
-
-            return;
-          }
-
-          toast({
-            title: "Dados atualizados com sucesso!",
-          });
-
-          setIsUserDialogOpen(false);
-        }}
+        onSubmit={(values) =>
+          onSubmitUser({
+            values,
+            userId: userData?.id || "",
+            onSuccessSubmit: () => {
+              setIsUserDialogOpen(false);
+            },
+          })
+        }
         defaultValues={{
           country: userData?.country || "",
           email: userData?.email || "",
@@ -130,8 +106,8 @@ export function Header() {
         }}
       >
         <DialogFooter>
-          <Button type="submit" disabled={updateUserRequest.isLoading}>
-            {!updateUserRequest.isLoading
+          <Button type="submit" disabled={updateUserRequestInfo.isLoading}>
+            {!updateUserRequestInfo.isLoading
               ? "Salvar alterações"
               : "Salvando alterações"}
           </Button>

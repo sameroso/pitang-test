@@ -14,7 +14,7 @@ export const createUserSchema = z.object({
     .min(8, { message: "Senha precisa conter no mínimo 8 caracteres" }),
 });
 
-export type CreateUserFormValuesFormValues = z.infer<typeof createUserSchema>;
+export type CreateUserFormSchema = z.infer<typeof createUserSchema>;
 
 export const edituserSchema = z.object({
   firstName: z
@@ -36,10 +36,10 @@ export const edituserSchema = z.object({
     .or(z.literal("")),
 });
 
-export type EditUserFormValuesFormValues = z.infer<typeof edituserSchema>;
+export type EditUserFormSchema = z.infer<typeof edituserSchema>;
 
 export type UserSchema = typeof createUserSchema | typeof edituserSchema;
 
 export type UserFormValues =
-  | CreateUserFormValuesFormValues
-  | EditUserFormValuesFormValues;
+  | CreateUserFormSchema
+  | EditUserFormSchema;
