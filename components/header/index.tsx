@@ -7,8 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "../toggle-theme";
-import { useGetUserQuery } from "@/features/auth/api/user";
-import { EditUserDialog } from "@/features/auth/components/edit-user-form";
+import {
+  useGetUserQuery,
+  useUpdateUserMutation,
+} from "@/features/auth/api/user";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useGetPreferencesQuery } from "@/features/preferences/api/preferences";
@@ -16,12 +18,16 @@ import { useLogout, useSubmitPreferences } from "./hooks";
 import { SimpleDialog } from "../simple-dialog";
 import { UserPreferencesForm } from "@/features/preferences/components/preferences-form";
 import { DialogFooter } from "../ui/dialog";
+import { UserForm } from "@/features/auth/components/user-form";
+import { edituserSchema } from "@/features/auth/components/user-schema";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 export function Header() {
   const { handleLogout } = useLogout();
   const [isPreferencesDialogOpen, setIsPreferencesDialogOpen] = useState(false);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
 
   const { data: userData } = useGetUserQuery();
 
@@ -29,6 +35,10 @@ export function Header() {
     useSubmitPreferences();
 
   const { data: preferencesData } = useGetPreferencesQuery();
+
+  const [updateUser, updateUserRequest] = useUpdateUserMutation();
+
+  const { toast } = useToast();
 
   const PreferencesDialog = (
     <SimpleDialog
@@ -72,19 +82,67 @@ export function Header() {
     </SimpleDialog>
   );
 
+  const EditUserDialog = (
+    <SimpleDialog
+      DialogProps={{
+        open: isUserDialogOpen,
+        onOpenChange: (open) => {
+          setIsUserDialogOpen(open);
+        },
+      }}
+      title="Editar Suas Informações"
+      description="Faça mudanças no seu perfil aqui"
+    >
+      <UserForm
+        schema={edituserSchema}
+        onSubmit={async (values) => {
+          const user = await updateUser({
+            country: values.country,
+            email: values.email,
+            first_name: values.firstName,
+            last_name: values.lastName,
+            id: userData?.id || "",
+            password: values.password,
+          });
+
+          if (axios.isAxiosError(user.error)) {
+            toast({
+              title: "Ocorreu algum problema",
+              description: user.error.response?.data,
+              variant: "destructive",
+            });
+
+            return;
+          }
+
+          toast({
+            title: "Dados atualizados com sucesso!",
+          });
+
+          setIsUserDialogOpen(false);
+        }}
+        defaultValues={{
+          country: userData?.country || "",
+          email: userData?.email || "",
+          firstName: userData?.first_name || "",
+          lastName: userData?.last_name || "",
+          password: userData?.password || "",
+        }}
+      >
+        <DialogFooter>
+          <Button type="submit" disabled={updateUserRequest.isLoading}>
+            {!updateUserRequest.isLoading
+              ? "Salvar alterações"
+              : "Salvando alterações"}
+          </Button>
+        </DialogFooter>
+      </UserForm>
+    </SimpleDialog>
+  );
+
   return (
     <>
-      <EditUserDialog
-        DialogProps={{
-          open: isDialogOpen,
-          onOpenChange: (open) => {
-            setIsDialogOpen(open);
-          },
-        }}
-        onSuccessSubmit={() => {
-          setIsDialogOpen(false);
-        }}
-      />
+      {EditUserDialog}
       {PreferencesDialog}
       <header className="w-full px-4 lg:px-6 h-14 flex items-center bg-secondary">
         <div className="flex w-full justify-end md:justify-between items-center">
@@ -104,7 +162,7 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
-                    setIsDialogOpen(true);
+                    setIsUserDialogOpen(true);
                   }}
                 >
                   Editar Usuário

@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Home } from "lucide-react";
 
-const navItems = [{ name: "Home", href: "/", icon: Home }];
+export const navItems = [{ name: "Home", href: "/", icon: Home }];
 
 export default function LeftNav() {
   return (
@@ -36,7 +36,7 @@ export default function LeftNav() {
         </SheetContent>
       </Sheet>
 
-      {/* Desktop Navigation */}
+      
       <div className="hidden md:flex flex-col left-0 top-0 bottom-0 w-[240px] bg-background border-r h-screen">
         <ScrollArea className="flex-grow">
           <div className="flex flex-col gap-2 p-4">

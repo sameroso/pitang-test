@@ -33,10 +33,13 @@ const config: Config = {
     "!**/node_modules/**",
     "!**/vendor/**",
     "!**/.next/**",
+    "!**/dtos/**",
     "!**/*.d.{js,jsx,ts,tsx}",
     "!jest.config.ts",
     "!next-env.d.ts",
     "!tailwind.config.ts",
+    "!**/coverage/**",
+    "!**/types.{js,jsx,ts,tsx}"
   ],
 
   // The directory where Jest should output its coverage files
