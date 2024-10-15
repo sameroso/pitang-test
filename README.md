@@ -31,6 +31,11 @@ npm run dev:db
 npm test
 ```
 
+5. **Executar os testes com coverage:**:
+```bash
+npm test --coverage
+```
+
 
 # 💻 Overview da Aplicação
 
