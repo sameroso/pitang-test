@@ -28,7 +28,7 @@ import { mapCurrencyToTableValues } from "../convert-base-currency";
 export const columns: ColumnDef<{
   currency: string;
   value: number;
-  date: string;
+  date: number;
 }>[] = [
   {
     accessorKey: "currency",
@@ -91,7 +91,12 @@ export const columns: ColumnDef<{
     cell: ({ row }) => {
       return (
         <div className="text-left font-medium">
-          {new Date(row.getValue("date")).toDateString()}
+          {new Date((row.getValue("date") as number) * 1000).toLocaleString(
+            "pt-BR",
+            {
+              timeZone: "America/Sao_Paulo",
+            },
+          )}
         </div>
       );
     },

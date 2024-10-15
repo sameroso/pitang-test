@@ -133,9 +133,6 @@ export function Header() {
                 <Button variant="outline">{userData?.first_name}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout}>
-                  Logout
-                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
                     setIsUserDialogOpen(true);
@@ -149,6 +146,9 @@ export function Header() {
                   }}
                 >
                   Editar Preferências
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -3,10 +3,10 @@ import { CurrencyTable } from "./currency-table";
 import StoreProvider from "@/lib/redux/store-provider";
 import { fixerResponseMock } from "@/testing/mocks/fixer-api-mock";
 import { mapCurrencyToTableValues } from "../convert-base-currency";
-import { StoreProviderRequestSuccess } from "@/testing/store-provider-failed-requests";
+import { StoreProviderRequestSuccess } from "@/testing/store-provider-success-requests";
 import { act } from "react";
 import { authMockServiceSuccess } from "@/testing/mocks/services-mock.ts/auth-mock-service";
-import { getCurrencyError } from "@/testing/mocks/handlers/currency";
+import { GetCurrencyErrorMockService } from "@/testing/mocks/services-mock.ts/currency-service-mock";
 
 describe("Currency table tests when fetching", () => {
   it("should show loading component when fetching data", async () => {
@@ -29,7 +29,7 @@ describe("Currency table tests when error", () => {
         <StoreProvider
           extraArgument={{
             authService: authMockServiceSuccess,
-            currencyService: { getCurrencies: getCurrencyError },
+            currencyService: GetCurrencyErrorMockService,
           }}
         >
           <CurrencyTable />
@@ -48,7 +48,7 @@ describe("Currency table tests when error", () => {
         <StoreProvider
           extraArgument={{
             authService: authMockServiceSuccess,
-            currencyService: { getCurrencies: getCurrencyError },
+            currencyService: GetCurrencyErrorMockService,
           }}
         >
           <CurrencyTable />

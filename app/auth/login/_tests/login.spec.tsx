@@ -8,10 +8,10 @@ import {
 import LoginPage from "../page";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { StoreProviderRequestSuccess } from "@/testing/store-provider-failed-requests";
+import { StoreProviderRequestSuccess } from "@/testing/store-provider-success-requests";
 import StoreProvider from "@/lib/redux/store-provider";
 import { authMockServiceError } from "@/testing/mocks/services-mock.ts/auth-mock-service";
-import { currencyService } from "@/services/currency-service";
+import { GetCurrencySuccessMockService } from "@/testing/mocks/services-mock.ts/currency-service-mock";
 
 // Mock the dependencies
 jest.mock("@/hooks/use-toast", () => ({
@@ -71,7 +71,7 @@ describe("LoginPage", () => {
       <StoreProvider
         extraArgument={{
           authService: authMockServiceError,
-          currencyService: currencyService,
+          currencyService: GetCurrencySuccessMockService,
         }}
       >
         <LoginPage />

@@ -1,14 +1,7 @@
+import { CurrenciesDTO } from "@/dtos/currency";
+import { fixerApi } from "@/http/fixer-api";
 import { fixerResponseMock } from "@/testing/mocks/fixer-api-mock";
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
-
-export interface CurrenciesDTO {
-  success: boolean;
-  timestamp: number;
-  historical: boolean;
-  base: string;
-  date: string;
-  rates: Record<string, number>;
-}
 
 export const getCurrencies = () => {
   return new Promise<AxiosResponse<CurrenciesDTO>>((res) => {
@@ -29,5 +22,7 @@ export interface ICurrecyService {
 }
 
 export const currencyService: ICurrecyService = {
-  getCurrencies,
+  getCurrencies() {
+    return fixerApi.get("/latest");
+  },
 };

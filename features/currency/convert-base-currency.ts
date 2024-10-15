@@ -1,4 +1,4 @@
-import { CurrenciesDTO } from "@/services/currency-service";
+import { CurrenciesDTO } from "@/dtos/currency";
 
 export const transformBaseCurrencyRate = (
   currency: CurrenciesDTO,
@@ -19,7 +19,7 @@ export const mapCurrencyToTableValues = (currencyRates: CurrenciesDTO) => {
     ([currency, value]) => ({
       currency,
       value: converToBRLRate(currencyRates, value) as number,
-      date: currencyRates.date || "",
+      date: currencyRates.timestamp,
     }),
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Header } from ".";
-import { StoreProviderRequestSuccess } from "@/testing/store-provider-failed-requests";
+import { StoreProviderRequestSuccess } from "@/testing/store-provider-success-requests";
 import { Toaster } from "../ui/toaster";
 
 jest.mock("next/navigation", () => {
