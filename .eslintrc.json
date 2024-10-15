@@ -1,3 +1,50 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "import/no-restricted-paths": [
+      "error",
+      {
+        "zones": [
+          {
+            "target": "./features/auth",
+            "from": "./features",
+            "except": ["./auth"]
+          },
+          {
+            "target": "./features/currency",
+            "from": "./features",
+            "except": ["./currency"]
+          },
+          {
+            "target": "./features/preferences",
+            "from": "./features",
+            "except": ["./preferences"]
+          },
+          {
+            "target": "./features",
+            "from": "./app"
+          },
+          {
+            "target": "./components/ui",
+            "from": ["./features", "./app", "./dtos"]
+          },
+          {
+            "target": "./components/ui",
+            "from": "./components",
+            "except": ["./ui"]
+          },
+          {
+            "target": [
+              "./src/components",
+              "./src/hooks",
+              "./src/lib",
+              "./src/types",
+              "./src/utils"
+            ],
+            "from": ["./src/features", "./src/app"]
+          }
+        ]
+      }
+    ]
+  }
 }
