@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export async function PATCH(request: Request) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const removeFalsyElement = <TRecord extends Record<string, any>>(
-    object: TRecord
+    object: TRecord,
   ) => {
     const parsedRecord = Object.entries(object).reduce((acc, cur) => {
       if (!!cur[1]) {
@@ -25,7 +25,7 @@ export async function PATCH(request: Request) {
 
     const preferences = await userPreferencesService.update(
       id || "",
-      removeFalsyElement(rest)
+      removeFalsyElement(rest),
     );
 
     cookieStorage.set("preferences", JSON.stringify(preferences.data), {

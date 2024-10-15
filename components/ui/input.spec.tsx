@@ -9,7 +9,7 @@ describe("Input Component", () => {
     const input = screen.getByTestId("test-input");
     expect(input).toBeInTheDocument();
     expect(input).toHaveClass(
-      "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+      "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
     );
   });
 
@@ -28,7 +28,7 @@ describe("Input Component", () => {
     render(<Input type="password" data-testid="test-input" />);
     expect(screen.getByTestId("test-input")).toHaveAttribute(
       "type",
-      "password"
+      "password",
     );
   });
 
@@ -41,7 +41,7 @@ describe("Input Component", () => {
     render(<Input placeholder="Enter text" data-testid="test-input" />);
     expect(screen.getByTestId("test-input")).toHaveAttribute(
       "placeholder",
-      "Enter text"
+      "Enter text",
     );
   });
 
@@ -66,7 +66,7 @@ describe("Input Component", () => {
     const input = screen.getByTestId("test-input");
     expect(input).toHaveAttribute("type", "file");
     expect(input).toHaveClass(
-      "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground"
+      "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground",
     );
   });
 

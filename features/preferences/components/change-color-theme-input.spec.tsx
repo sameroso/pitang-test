@@ -19,7 +19,7 @@ describe("ChangeThemeColorInput", () => {
         InputColorSelectorProps={mockInputColorSelectorProps}
         InputProps={mockInputProps}
         ResetButtonProps={mockResetButtonProps}
-      />
+      />,
     );
 
     expect(screen.getByTestId("input-text")).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe("ChangeThemeColorInput", () => {
         InputColorSelectorProps={mockInputColorSelectorProps}
         InputProps={mockInputProps}
         ResetButtonProps={mockResetButtonProps}
-      />
+      />,
     );
 
     const colorInput = screen.getByTestId("input-color");
@@ -47,7 +47,7 @@ describe("ChangeThemeColorInput", () => {
         InputColorSelectorProps={mockInputColorSelectorProps}
         InputProps={mockInputProps}
         ResetButtonProps={mockResetButtonProps}
-      />
+      />,
     );
 
     const mainInput = screen.getByTestId("input-text");
@@ -61,7 +61,7 @@ describe("ChangeThemeColorInput", () => {
         InputColorSelectorProps={mockInputColorSelectorProps}
         InputProps={mockInputProps}
         ResetButtonProps={mockResetButtonProps}
-      />
+      />,
     );
 
     const resetButton = screen.getByRole("button");

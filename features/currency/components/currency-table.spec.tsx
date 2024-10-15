@@ -14,8 +14,8 @@ describe("Currency table tests when fetching", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     expect(screen.getByTestId("loading-table")).toBeInTheDocument();
@@ -33,8 +33,8 @@ describe("Currency table tests when error", () => {
           }}
         >
           <CurrencyTable />
-        </StoreProvider>
-      )
+        </StoreProvider>,
+      ),
     );
 
     await waitFor(() => {
@@ -52,8 +52,8 @@ describe("Currency table tests when error", () => {
           }}
         >
           <CurrencyTable />
-        </StoreProvider>
-      )
+        </StoreProvider>,
+      ),
     );
 
     await waitFor(() => {
@@ -76,8 +76,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
 
@@ -95,8 +95,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
@@ -119,8 +119,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
@@ -141,8 +141,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
@@ -165,8 +165,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);
@@ -185,8 +185,8 @@ describe("Currency table tests when table load with success", () => {
       render(
         <StoreProviderRequestSuccess>
           <CurrencyTable />
-        </StoreProviderRequestSuccess>
-      )
+        </StoreProviderRequestSuccess>,
+      ),
     );
 
     const tableValues = mapCurrencyToTableValues(fixerResponseMock);

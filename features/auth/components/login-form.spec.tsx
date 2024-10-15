@@ -24,7 +24,7 @@ describe("LoginForm", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText("Senha precisa conter no mínimo 8 caracteres")
+        screen.getByText("Senha precisa conter no mínimo 8 caracteres"),
       ).toBeInTheDocument();
       expect(screen.getByText("Email Inválido")).toBeInTheDocument();
     });
@@ -67,7 +67,7 @@ describe("LoginForm", () => {
     render(
       <LoginForm onSubmit={mockOnSubmit}>
         <button type="submit">Login</button>
-      </LoginForm>
+      </LoginForm>,
     );
 
     expect(screen.getByRole("button", { name: "Login" })).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe("LoginForm", () => {
 
     expect(screen.getByLabelText("Email")).toHaveAttribute(
       "autocomplete",
-      "username"
+      "username",
     );
   });
 
@@ -87,7 +87,7 @@ describe("LoginForm", () => {
 
     expect(screen.getByLabelText("Email")).toHaveAttribute(
       "placeholder",
-      "m@example.com"
+      "m@example.com",
     );
   });
 });

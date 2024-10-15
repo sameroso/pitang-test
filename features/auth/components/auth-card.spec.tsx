@@ -23,7 +23,7 @@ describe("AuthCard", () => {
     render(
       <AuthCard {...defaultProps}>
         <div data-testid="child-element">Child Content</div>
-      </AuthCard>
+      </AuthCard>,
     );
     expect(screen.getByTestId("child-element")).toBeInTheDocument();
     expect(screen.getByText("Child Content")).toBeInTheDocument();

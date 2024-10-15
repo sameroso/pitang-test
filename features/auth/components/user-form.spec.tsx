@@ -63,15 +63,17 @@ describe("SignupForm", () => {
 
       await waitFor(() => {
         expect(
-          screen.getByText("Nome deve ter pelo menos 2 caracteres")
+          screen.getByText("Nome deve ter pelo menos 2 caracteres"),
         ).toBeInTheDocument();
         expect(
-          screen.getByText("Sobrenome deve ter pelo menos 2 caracteres")
+          screen.getByText("Sobrenome deve ter pelo menos 2 caracteres"),
         ).toBeInTheDocument();
-        expect(screen.getByText("É necesário selecionar um país")).toBeInTheDocument();
+        expect(
+          screen.getByText("É necesário selecionar um país"),
+        ).toBeInTheDocument();
         expect(screen.getByText("Email inválido")).toBeInTheDocument();
         expect(
-          screen.getByText("Senha precisa conter no mínimo 8 caracteres")
+          screen.getByText("Senha precisa conter no mínimo 8 caracteres"),
         ).toBeInTheDocument();
       });
     });
@@ -88,7 +90,7 @@ describe("SignupForm", () => {
       render(
         <UserForm {...editProps} onSubmit={onSubmit}>
           <button type="submit"></button>
-        </UserForm>
+        </UserForm>,
       );
 
       fireEvent.change(screen.getByLabelText("First Name"), {
@@ -174,7 +176,7 @@ describe("SignupForm", () => {
     render(
       <UserForm {...defaultProps}>
         <button type="submit">Custom Submit</button>
-      </UserForm>
+      </UserForm>,
     );
 
     expect(screen.getByText("Custom Submit")).toBeInTheDocument();

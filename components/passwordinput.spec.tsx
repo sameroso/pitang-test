@@ -32,7 +32,7 @@ describe("PasswordInput", () => {
 
   it("passes props to the Input component", () => {
     render(
-      <PasswordInput placeholder="Enter password" className="custom-class" />
+      <PasswordInput placeholder="Enter password" className="custom-class" />,
     );
     const input = screen.getByRole("textbox");
 

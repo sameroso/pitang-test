@@ -43,7 +43,6 @@ const config: Config = {
     "!**/route.{js,jsx,ts,tsx}",
     "!**/layout.{js,jsx,ts,tsx}",
     "!**/testing/**",
-
   ],
 
   // The directory where Jest should output its coverage files

@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const { password, ...rest } = data;
 
     const settings = await userPreferencesService.getUserSettingsByUserId(
-      res?.data?.[0].id
+      res?.data?.[0].id,
     );
 
     cookieStorage.set("user", JSON.stringify(rest), {

@@ -30,7 +30,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableHeader data-testid="table-header" />
-        </Table>
+        </Table>,
       );
       const header = screen.getByTestId("table-header");
       expect(header).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableHeader data-testid="table-header" className="custom-class" />
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-header")).toHaveClass("custom-class");
     });
@@ -52,7 +52,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableBody data-testid="table-body" />
-        </Table>
+        </Table>,
       );
       const body = screen.getByTestId("table-body");
       expect(body).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableBody data-testid="table-body" className="custom-class" />
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-body")).toHaveClass("custom-class");
     });
@@ -74,12 +74,12 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableFooter data-testid="table-footer" />
-        </Table>
+        </Table>,
       );
       const footer = screen.getByTestId("table-footer");
       expect(footer).toBeInTheDocument();
       expect(footer).toHaveClass(
-        "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0"
+        "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
       );
     });
 
@@ -87,7 +87,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableFooter data-testid="table-footer" className="custom-class" />
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-footer")).toHaveClass("custom-class");
     });
@@ -100,12 +100,12 @@ describe("Table Components", () => {
           <TableBody>
             <TableRow data-testid="table-row" />
           </TableBody>
-        </Table>
+        </Table>,
       );
       const row = screen.getByTestId("table-row");
       expect(row).toBeInTheDocument();
       expect(row).toHaveClass(
-        "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
       );
     });
 
@@ -115,7 +115,7 @@ describe("Table Components", () => {
           <TableBody>
             <TableRow data-testid="table-row" className="custom-class" />
           </TableBody>
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-row")).toHaveClass("custom-class");
     });
@@ -130,12 +130,12 @@ describe("Table Components", () => {
               <TableHead data-testid="table-head" />
             </TableRow>
           </TableHeader>
-        </Table>
+        </Table>,
       );
       const head = screen.getByTestId("table-head");
       expect(head).toBeInTheDocument();
       expect(head).toHaveClass(
-        "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+        "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
       );
     });
 
@@ -147,7 +147,7 @@ describe("Table Components", () => {
               <TableHead data-testid="table-head" className="custom-class" />
             </TableRow>
           </TableHeader>
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-head")).toHaveClass("custom-class");
     });
@@ -162,12 +162,12 @@ describe("Table Components", () => {
               <TableCell data-testid="table-cell" />
             </TableRow>
           </TableBody>
-        </Table>
+        </Table>,
       );
       const cell = screen.getByTestId("table-cell");
       expect(cell).toBeInTheDocument();
       expect(cell).toHaveClass(
-        "p-4 align-middle [&:has([role=checkbox])]:pr-0"
+        "p-4 align-middle [&:has([role=checkbox])]:pr-0",
       );
     });
 
@@ -179,7 +179,7 @@ describe("Table Components", () => {
               <TableCell data-testid="table-cell" className="custom-class" />
             </TableRow>
           </TableBody>
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-cell")).toHaveClass("custom-class");
     });
@@ -190,7 +190,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableCaption data-testid="table-caption" />
-        </Table>
+        </Table>,
       );
       const caption = screen.getByTestId("table-caption");
       expect(caption).toBeInTheDocument();
@@ -201,7 +201,7 @@ describe("Table Components", () => {
       render(
         <Table>
           <TableCaption data-testid="table-caption" className="custom-class" />
-        </Table>
+        </Table>,
       );
       expect(screen.getByTestId("table-caption")).toHaveClass("custom-class");
     });
@@ -229,7 +229,7 @@ describe("Table Components", () => {
               <TableCell colSpan={2}>Footer</TableCell>
             </TableRow>
           </TableFooter>
-        </Table>
+        </Table>,
       );
 
       expect(screen.getByText("A test table")).toBeInTheDocument();

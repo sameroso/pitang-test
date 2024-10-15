@@ -47,22 +47,22 @@ describe("UserPreferencesForm", () => {
     render(
       <ThemeProvider>
         <UserPreferencesForm onSubmit={mockOnSubmit} />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     expect(screen.getByLabelText("Claro")).toBeInTheDocument();
     expect(screen.getByLabelText("Escuro")).toBeInTheDocument();
     expect(
-      screen.getByLabelText("Cor Primária Modo Claro")
+      screen.getByLabelText("Cor Primária Modo Claro"),
     ).toBeInTheDocument();
     expect(
-      screen.getByLabelText("Cor Secundária Modo Claro")
+      screen.getByLabelText("Cor Secundária Modo Claro"),
     ).toBeInTheDocument();
     expect(
-      screen.getByLabelText("Cor Primária Modo Escuro")
+      screen.getByLabelText("Cor Primária Modo Escuro"),
     ).toBeInTheDocument();
     expect(
-      screen.getByLabelText("Cor Secundária Modo Escuro")
+      screen.getByLabelText("Cor Secundária Modo Escuro"),
     ).toBeInTheDocument();
   });
 
@@ -80,7 +80,7 @@ describe("UserPreferencesForm", () => {
         expect.objectContaining({
           preferredMode: "dark",
           lightModePrimary: "#ffffff",
-        })
+        }),
       );
     });
   });
@@ -93,7 +93,7 @@ describe("UserPreferencesForm", () => {
     expect(mockSetTheme).toHaveBeenCalledWith(
       expect.objectContaining({
         mode: "dark",
-      })
+      }),
     );
   });
 
@@ -109,7 +109,7 @@ describe("UserPreferencesForm", () => {
         primary_color: expect.objectContaining({
           light: "#ffffff",
         }),
-      })
+      }),
     );
   });
 
@@ -127,7 +127,7 @@ describe("UserPreferencesForm", () => {
         primary_color: expect.objectContaining({
           light: hslToHex(COLORS.light.primary),
         }),
-      })
+      }),
     );
   });
 
@@ -135,7 +135,7 @@ describe("UserPreferencesForm", () => {
     render(
       <ThemeProvider>
         <UserPreferencesForm onSubmit={mockOnSubmit} />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     fireEvent.change(screen.getByLabelText("Cor Primária Modo Claro"), {
@@ -160,7 +160,7 @@ describe("UserPreferencesForm", () => {
           lightModeSecondary: "#444337",
           darkModePrimary: "#fffccc",
           darkModeSecondary: "#fff123",
-        })
+        }),
       );
     });
   });
@@ -180,7 +180,7 @@ describe("UserPreferencesForm", () => {
           onSubmit={mockOnSubmit}
           defaultValues={defaultValues}
         />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     fireEvent.submit(screen.getByRole("form"));
@@ -194,7 +194,7 @@ describe("UserPreferencesForm", () => {
     render(
       <ThemeProvider>
         <UserPreferencesForm onSubmit={mockOnSubmit} />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     fireEvent.submit(screen.getByRole("form"));
@@ -206,7 +206,7 @@ describe("UserPreferencesForm", () => {
           lightModeSecondary: hslToHex(COLORS.light.secondary),
           darkModePrimary: hslToHex(COLORS.dark.primary),
           darkModeSecondary: hslToHex(COLORS.dark.secondary),
-        })
+        }),
       );
     });
   });

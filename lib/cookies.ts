@@ -18,7 +18,7 @@ export const getCookies = () => {
 };
 
 export const changeTimeFromDaysToMilisecondsFromCurrentDate = (
-  days: number
+  days: number,
 ) => {
   const date = new Date();
   const HOURS_PER_DAY = 24;
@@ -31,6 +31,6 @@ export const changeTimeFromDaysToMilisecondsFromCurrentDate = (
         HOURS_PER_DAY *
         MINUTES_PER_HOUR *
         SECONDS_PER_MINUTE *
-        MILISSECONDS_PER_SECOND
+        MILISSECONDS_PER_SECOND,
   );
 };

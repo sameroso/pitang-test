@@ -17,7 +17,7 @@ describe("DOM Style Manipulation Functions", () => {
     test("appends secondary variable to body style", () => {
       appendVariableToBodyStyle({ variable: "secondary", value: "#00ff00" });
       expect(document.body.style.getPropertyValue("--secondary")).toBe(
-        "#00ff00"
+        "#00ff00",
       );
     });
 

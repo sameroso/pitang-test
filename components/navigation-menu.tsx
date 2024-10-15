@@ -36,7 +36,6 @@ export default function LeftNav() {
         </SheetContent>
       </Sheet>
 
-      
       <div className="hidden md:flex flex-col left-0 top-0 bottom-0 w-[240px] bg-background border-r h-screen">
         <ScrollArea className="flex-grow">
           <div className="flex flex-col gap-2 p-4">

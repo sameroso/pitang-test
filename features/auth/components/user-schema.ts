@@ -40,6 +40,4 @@ export type EditUserFormSchema = z.infer<typeof edituserSchema>;
 
 export type UserSchema = typeof createUserSchema | typeof edituserSchema;
 
-export type UserFormValues =
-  | CreateUserFormSchema
-  | EditUserFormSchema;
+export type UserFormValues = CreateUserFormSchema | EditUserFormSchema;

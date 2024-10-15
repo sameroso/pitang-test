@@ -2,7 +2,7 @@ import { CurrenciesDTO } from "@/services/currency-service";
 
 export const transformBaseCurrencyRate = (
   currency: CurrenciesDTO,
-  baseCurrency: string
+  baseCurrency: string,
 ) => {
   const baseCurrencyValue = currency.rates[currency.base] || 0;
   const desiredBaseCurrencyValue = currency.rates[baseCurrency] || 1;
@@ -20,6 +20,6 @@ export const mapCurrencyToTableValues = (currencyRates: CurrenciesDTO) => {
       currency,
       value: converToBRLRate(currencyRates, value) as number,
       date: currencyRates.date || "",
-    })
+    }),
   );
 };

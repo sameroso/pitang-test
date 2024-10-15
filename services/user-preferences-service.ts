@@ -6,16 +6,16 @@ import { PromisifyAxiosResponse } from "@/lib/axios/types";
 import { AxiosInstance } from "axios";
 
 type GetUserSettingsByUserId = (
-  userId: string
+  userId: string,
 ) => PromisifyAxiosResponse<Partial<PreferencesDto>[]>;
 
 type CreateSettings = (
-  settings: CreatePreferencesDto
+  settings: CreatePreferencesDto,
 ) => PromisifyAxiosResponse<Partial<PreferencesDto>>;
 
 type UpdateSettings = (
   userId: string,
-  settings: Partial<CreatePreferencesDto>
+  settings: Partial<CreatePreferencesDto>,
 ) => PromisifyAxiosResponse<Partial<PreferencesDto>>;
 
 export interface IUserPreferencerService {

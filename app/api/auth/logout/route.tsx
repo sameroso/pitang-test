@@ -14,7 +14,7 @@ export async function POST() {
       "Ocorreu um erro na tentativa de logout, por favor tente novamente",
       {
         status: 400,
-      }
+      },
     );
   }
 }

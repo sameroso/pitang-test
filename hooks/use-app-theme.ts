@@ -24,7 +24,7 @@ export const useAppTheme = () => {
           value:
             hexToCssHsl(
               args.primary_color?.light || data?.primary_color?.light,
-              true
+              true,
             ) || COLORS.light.primary,
           variable: "primary",
         });
@@ -34,7 +34,7 @@ export const useAppTheme = () => {
           value:
             hexToCssHsl(
               args.secondary_color?.light || data?.secondary_color?.light,
-              true
+              true,
             ) || COLORS.light.secondary,
         });
       }
@@ -48,7 +48,7 @@ export const useAppTheme = () => {
           value:
             hexToCssHsl(
               args.primary_color?.dark || data?.primary_color?.dark,
-              true
+              true,
             ) || COLORS.dark.primary,
         });
 
@@ -57,7 +57,7 @@ export const useAppTheme = () => {
           value:
             hexToCssHsl(
               args.secondary_color?.dark || data?.secondary_color?.dark,
-              true
+              true,
             ) || COLORS.dark.secondary,
         });
       }
@@ -69,7 +69,7 @@ export const useAppTheme = () => {
       data?.secondary_color?.light,
       theme,
       themeProps,
-    ]
+    ],
   );
 
   return { ...themeProps, setTheme, theme };

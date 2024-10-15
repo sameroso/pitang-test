@@ -29,7 +29,7 @@ export function ErrorComponent({
       data-testid={dataTestid}
       className={cn(
         "w-full max-w-md mx-auto border-none bg-transparent",
-        cardClassName
+        cardClassName,
       )}
     >
       <CardHeader>

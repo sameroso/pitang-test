@@ -40,7 +40,7 @@ describe("LoginPage", () => {
     render(
       <StoreProviderRequestSuccess>
         <LoginPage />
-      </StoreProviderRequestSuccess>
+      </StoreProviderRequestSuccess>,
     );
 
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -75,7 +75,7 @@ describe("LoginPage", () => {
         }}
       >
         <LoginPage />
-      </StoreProvider>
+      </StoreProvider>,
     );
 
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -96,7 +96,7 @@ describe("LoginPage", () => {
         expect.objectContaining({
           title: "Ocorreu algum problema",
           variant: "destructive",
-        })
+        }),
       );
 
       expect(mockPush).not.toHaveBeenCalled();
@@ -107,7 +107,7 @@ describe("LoginPage", () => {
     render(
       <StoreProviderRequestSuccess>
         <LoginPage />
-      </StoreProviderRequestSuccess>
+      </StoreProviderRequestSuccess>,
     );
 
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -125,7 +125,7 @@ describe("LoginPage", () => {
       screen.getByRole("button", { name: "Logging in..." });
     });
     expect(
-      screen.getByRole("button", { name: "Logging in..." })
+      screen.getByRole("button", { name: "Logging in..." }),
     ).toBeDisabled();
   });
 
@@ -133,7 +133,7 @@ describe("LoginPage", () => {
     render(
       <StoreProviderRequestSuccess>
         <LoginPage />
-      </StoreProviderRequestSuccess>
+      </StoreProviderRequestSuccess>,
     );
     expect(screen.getByTestId("theme-toggle")).toBeInTheDocument();
   });
@@ -142,7 +142,7 @@ describe("LoginPage", () => {
     render(
       <StoreProviderRequestSuccess>
         <LoginPage />
-      </StoreProviderRequestSuccess>
+      </StoreProviderRequestSuccess>,
     );
     const signupLink = screen.getByRole("link", { name: "Não tem uma conta?" });
     expect(signupLink).toBeInTheDocument();

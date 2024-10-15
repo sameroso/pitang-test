@@ -5,11 +5,11 @@ import { cookies } from "next/headers";
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const removeFalsyElement = <TRecord extends Record<string, any>>(
-    object: TRecord
+    object: TRecord,
   ) => {
     const parsedRecord = Object.entries(object).reduce((acc, cur) => {
       if (!!cur[1]) {
@@ -27,7 +27,7 @@ export async function PATCH(
 
     const user = await userService.updateUser(
       params.id,
-      removeFalsyElement(body)
+      removeFalsyElement(body),
     );
 
     const data = { ...user.data };

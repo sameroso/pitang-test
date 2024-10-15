@@ -9,7 +9,7 @@ type GetUserById = (id: string) => PromisifyAxiosResponse<UserDto>;
 type GetUserByEmail = (email: string) => PromisifyAxiosResponse<UserDto[]>;
 type UpdateUser = (
   id: string,
-  user: Partial<UserDto>
+  user: Partial<UserDto>,
 ) => PromisifyAxiosResponse<UserDto>;
 type CreateUser = (user: RequestUserDto) => PromisifyAxiosResponse<UserDto>;
 

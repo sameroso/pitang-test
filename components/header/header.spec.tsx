@@ -22,7 +22,7 @@ describe("Header", () => {
         <StoreProviderRequestSuccess>
           <Header />
         </StoreProviderRequestSuccess>
-      </>
+      </>,
     );
 
     expect(screen.getByRole("banner")).toBeInTheDocument();

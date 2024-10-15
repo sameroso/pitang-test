@@ -34,12 +34,12 @@ export const preferencesApi = createApi({
     >({
       queryFn: async (
         userPreferences: Omit<PreferencesDto, "user_id">,
-        extraOptions: ExtraOptions
+        extraOptions: ExtraOptions,
       ) => {
         try {
           const res =
             await extraOptions.extra.authService.updateUserPreferences(
-              userPreferences
+              userPreferences,
             );
           return { data: res.data };
         } catch (e: unknown) {

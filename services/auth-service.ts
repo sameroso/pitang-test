@@ -18,7 +18,7 @@ type Logout = () => PromisifyAxiosResponse<AuthUserDto>;
 type SignUp = (user: RequestUserDto) => PromisifyAxiosResponse<AuthUserDto>;
 type UpdateUser = (user: UserDto) => PromisifyAxiosResponse<AuthUserDto>;
 type UpdateUserPreferences = (
-  user: Omit<PreferencesDto, "user_id">
+  user: Omit<PreferencesDto, "user_id">,
 ) => PromisifyAxiosResponse<PreferencesDto>;
 
 export interface IAuthService {

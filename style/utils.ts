@@ -89,7 +89,11 @@ export const appendVariableToBodyStyle = ({
     .style.setProperty(variableMapper[variable], value);
 };
 
-export const removeVariableFromBodyStyle = ({ variable }: { variable: Variables }) => {
+export const removeVariableFromBodyStyle = ({
+  variable,
+}: {
+  variable: Variables;
+}) => {
   document
     .querySelector("body")!
     .style.removeProperty(variableMapper[variable]);

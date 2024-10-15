@@ -30,7 +30,7 @@ describe("SimpleDialog", () => {
       <SimpleDialog
         {...defaultProps}
         DialogContentProps={{ className: "custom-class" }}
-      />
+      />,
     );
 
     expect(screen.getByTestId("dialog-content")).toHaveClass("custom-class");
@@ -38,7 +38,7 @@ describe("SimpleDialog", () => {
 
   it("passes correct props to DialogHeader component", () => {
     render(
-      <SimpleDialog {...defaultProps} DialogHeaderProps={{ id: "test" }} />
+      <SimpleDialog {...defaultProps} DialogHeaderProps={{ id: "test" }} />,
     );
 
     expect(screen.getByTestId("dialog-header")).toHaveAttribute("id", "test");
@@ -46,7 +46,7 @@ describe("SimpleDialog", () => {
 
   it("passes correct props to DialogTitle component", () => {
     render(
-      <SimpleDialog {...defaultProps} DialogTitleProps={{ id: "test" }} />
+      <SimpleDialog {...defaultProps} DialogTitleProps={{ id: "test" }} />,
     );
 
     expect(screen.getByTestId("dialog-title")).toHaveAttribute("id", "test");
@@ -54,12 +54,15 @@ describe("SimpleDialog", () => {
 
   it("passes correct props to DialogDescription component", () => {
     render(
-      <SimpleDialog {...defaultProps} DialogDescriptionProps={{ id: "test" }} />
+      <SimpleDialog
+        {...defaultProps}
+        DialogDescriptionProps={{ id: "test" }}
+      />,
     );
 
     expect(screen.getByTestId("dialog-description")).toHaveAttribute(
       "id",
-      "test"
+      "test",
     );
   });
 
@@ -67,7 +70,7 @@ describe("SimpleDialog", () => {
     render(
       <SimpleDialog {...defaultProps}>
         <div data-testid="child-component">Child Content</div>
-      </SimpleDialog>
+      </SimpleDialog>,
     );
 
     expect(screen.getByTestId("child-component")).toBeInTheDocument();

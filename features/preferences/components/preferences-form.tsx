@@ -182,7 +182,7 @@ export function UserPreferencesForm({
                             onClick: () => {
                               form.setValue(
                                 "lightModePrimary",
-                                hslToHex(COLORS.light.primary)
+                                hslToHex(COLORS.light.primary),
                               );
 
                               changeTheme({
@@ -230,7 +230,7 @@ export function UserPreferencesForm({
                             onClick: () => {
                               form.setValue(
                                 "lightModeSecondary",
-                                hslToHex(COLORS.light.secondary)
+                                hslToHex(COLORS.light.secondary),
                               );
                               changeTheme({
                                 secondary: {
@@ -277,7 +277,7 @@ export function UserPreferencesForm({
                             onClick: () => {
                               form.setValue(
                                 "darkModePrimary",
-                                hslToHex(COLORS.dark.primary)
+                                hslToHex(COLORS.dark.primary),
                               );
                               changeTheme({
                                 primary: {
@@ -317,7 +317,7 @@ export function UserPreferencesForm({
                             onClick: () => {
                               form.setValue(
                                 "darkModeSecondary",
-                                hslToHex(COLORS.dark.secondary)
+                                hslToHex(COLORS.dark.secondary),
                               );
                               changeTheme({
                                 secondary: {

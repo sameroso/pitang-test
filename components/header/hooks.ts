@@ -50,7 +50,7 @@ export const useSubmitPreferences = () => {
       });
       args?.onSuccessSubmit?.();
     },
-    [toast, updatePreferences]
+    [toast, updatePreferences],
   );
 
   return { onSubmitPreferences, updatePreferencesRequestInfo };
@@ -115,7 +115,7 @@ export const useSubmitUser = () => {
 
       args?.onSuccessSubmit?.();
     },
-    [toast, updateUser]
+    [toast, updateUser],
   );
 
   return { onSubmitUser, updateUserRequestInfo };

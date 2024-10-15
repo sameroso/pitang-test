@@ -39,7 +39,7 @@ export const columns: ColumnDef<{
           variant="ghost"
           onClick={() => {
             column.toggleSorting(
-              column.getIsSorted() === "asc" || !column.getIsSorted()
+              column.getIsSorted() === "asc" || !column.getIsSorted(),
             );
           }}
         >
@@ -126,7 +126,7 @@ export function CurrencyTable() {
                     <TableHead key={header.id} id={header.id}>
                       {flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                     </TableHead>
                   );
@@ -146,12 +146,12 @@ export function CurrencyTable() {
                     <TableCell
                       key={cell.id}
                       data-testid={`${row.getValue(
-                        "currency"
+                        "currency",
                       )}-${cell.getValue()}`}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

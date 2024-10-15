@@ -20,5 +20,7 @@ export interface PreferencesDto {
   mode?: string;
 }
 
-export type CreatePreferencesDto = Partial<Omit<PreferencesDto, "id" | "user_id">> &
+export type CreatePreferencesDto = Partial<
+  Omit<PreferencesDto, "id" | "user_id">
+> &
   Pick<PreferencesDto, "user_id">;

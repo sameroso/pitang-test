@@ -33,14 +33,14 @@ export default function RootLayout({
   const cookieStorage = cookies();
 
   const preferences = JSON.parse(
-    cookieStorage.get("preferences")?.value || "{}"
+    cookieStorage.get("preferences")?.value || "{}",
   );
 
   const secondaryColorStyle = preferences?.secondary_color?.[preferences?.mode]
     ? {
         "--secondary": hexToCssHsl(
           preferences.secondary_color[preferences.mode],
-          true
+          true,
         ),
       }
     : {};
@@ -49,7 +49,7 @@ export default function RootLayout({
     ? {
         "--primary": hexToCssHsl(
           preferences.primary_color[preferences.mode],
-          true
+          true,
         ),
       }
     : {};

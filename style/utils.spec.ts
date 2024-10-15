@@ -29,7 +29,7 @@ describe("checkHexValidity", () => {
   it("should return correct value for valid hex", () => {
     const result = checkHexValidity("#FF0000");
     expect(result.value?.toString()).toEqual(
-      ["#FF0000", "FF", "00", "00"].toString()
+      ["#FF0000", "FF", "00", "00"].toString(),
     );
   });
 
