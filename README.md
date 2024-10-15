@@ -41,8 +41,6 @@ npm test --coverage
 
 A aplicação permite que o usuário crie uma conta e faça login, visualize uma tabela de conversão de moedas e edite as preferências e seus dados cadastrados ao criar a conta
 
-[Demo](https://bulletproof-react-app.netlify.app)
-
 ### Funcionalidades
 
 Foram desenvolvidos para o projeto propost o seguinte funcionalidades:
@@ -62,7 +60,6 @@ Impor padrões de projeto é crucial para manter a qualidade, consistência e es
 
 ESLint é uma ferramenta valiosa de linting para JavaScript, ajudando desenvolvedores a manter a qualidade do código e a aderir aos padrões de codificação. Configurando regras no arquivo .`.eslintrc.json`, o ESLint ajuda a identificar e prevenir erros comuns, garantindo a correção do código e promovendo a consistência em toda a base de código. Essa abordagem não só ajuda a detectar erros precocemente, como também impõe uniformidade nas práticas de codificação, melhorando assim a qualidade geral e a legibilidade do código.
 
-[ESLint Configuration Example Code](../apps/react-vite/.eslintrc.cjs)
 
 #### Prettier
 
