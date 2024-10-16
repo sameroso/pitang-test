@@ -68,7 +68,7 @@ Prettier é uma ferramenta útil para manter a formatação de código consisten
 
 #### TypeScript
 
-ESLint é eficaz para detectar bugs relacionados à linguagem em JavaScript. No entanto, devido à natureza dinâmica do JavaScript, o ESLint pode não capturar todos os problemas de dados em tempo de execução, especialmente em projetos complexos. Para resolver isso, recomenda-se o uso de TypeScript. O TypeScript é valioso para identificar problemas durante grandes processos de refatoração que podem passar despercebidos. Ao refatorar, priorize a atualização das declarações de tipo primeiro e, em seguida, resolva os erros do TypeScript ao longo do projeto. É importante notar que, embora o TypeScript aumente a confiança no desenvolvimento ao realizar a verificação de tipos no momento da compilação, ele não impede falhas em tempo de execução.
+ESLint é eficaz para detectar bugs relacionados à linguagem em JavaScript. No entanto, devido à natureza dinâmica do JavaScript, o ESLint pode não capturar todos os problemas, especialmente em projetos complexos.
 
 
 #### Imports Absolutos
